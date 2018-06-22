@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<displayList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="S100Presentation.xsd">
+        <areaInstruction>
+                <featureReference reference="1"/>
+                <viewingGroup>13030</viewingGroup>
+                <displayPlane>S</displayPlane>
+                <drawingPriority>10</drawingPriority>
+                <colorFill>
+                        <color>
+                                <token>DEPIT</token>
+                                <transparency/>
+                        </color>
+                </colorFill>
+        </areaInstruction>
+        <areaInstruction>
+                <featureReference reference="1"/>
+                <viewingGroup>13030</viewingGroup>
+                <displayPlane>S</displayPlane>
+                <drawingPriority>11</drawingPriority>
+                <pixmapFill>
+                        <areaCRS>Global</areaCRS>
+                        <pixmap>
+                                <symbolReference>DIAMOND01</symbolReference>
+                        </pixmap>
+                </pixmapFill>
+        </areaInstruction>
+
+        <pointInstruction>
+                <featureReference reference="2"/>
+                <viewingGroup>17020</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>80</drawingPriority>
+                <symbol>
+                        <symbolReference>BCNCAR03</symbolReference>
+                        <rotation/>
+                        <rotationCRS/>
+                        <scaleFactor/>
+                </symbol>
+        </pointInstruction>
+
+        <areaInstruction>
+                <featureReference reference="3"/>
+                <viewingGroup>13030</viewingGroup>
+                <displayPlane>S</displayPlane>
+                <drawingPriority>10</drawingPriority>
+                <colorFill>
+                        <color>
+                                <token>DEPVS</token>
+                                <transparency/>
+                        </color>
+                </colorFill>
+        </areaInstruction>
+        <areaInstruction>
+                <featureReference reference="3"/>
+                <viewingGroup>13030</viewingGroup>
+                <displayPlane>S</displayPlane>
+                <drawingPriority>11</drawingPriority>
+                <pixmapFill>
+                        <areaCRS>Global</areaCRS>
+                        <pixmap>
+                                <symbolReference>DIAMOND01</symbolReference>
+                        </pixmap>
+                </pixmapFill>
+        </areaInstruction>
+
+        <lineInstruction>
+                <featureReference reference="4"/>
+                <spatialReference reference="2" forward="true"/>
+                <viewingGroup>33020</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>50</drawingPriority>
+                <simpleLineStyle>
+                        <capStyle/>
+                        <joinStyle/>
+                        <offset/>
+                        <pen width="1">
+                                <color>
+                                        <token>DEPCN</token>
+                                        <transparency/>
+                                </color>
+                        </pen>
+                </simpleLineStyle>
+        </lineInstruction>
+        <lineInstruction>
+                <featureReference reference=""/>
+                <spatialReference reference="1" forward="true"/>
+                <viewingGroup>33020</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>50</drawingPriority>
+                <simpleLineStyle>
+                        <capStyle/>
+                        <joinStyle/>
+                        <offset/>
+                        <pen width="1">
+                                <color>
+                                        <token>DEPCN</token>
+                                        <transparency/>
+                                </color>
+                        </pen>
+                </simpleLineStyle>
+        </lineInstruction>
+        <lineInstruction>
+                <featureReference reference=""/>
+                <spatialReference reference="5" forward="false"/>
+                <viewingGroup>33020</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>50</drawingPriority>
+                <simpleLineStyle>
+                        <capStyle/>
+                        <joinStyle/>
+                        <offset/>
+                        <pen width="1">
+                                <color>
+                                        <token>DEPCN</token>
+                                        <transparency/>
+                                </color>
+                        </pen>
+                </simpleLineStyle>
+        </lineInstruction>
+        <lineInstruction>
+                <featureReference reference=""/>
+                <spatialReference reference="3" forward="false"/>
+                <viewingGroup>33020</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>50</drawingPriority>
+                <simpleLineStyle>
+                        <capStyle/>
+                        <joinStyle/>
+                        <intervalLength>4</intervalLength>
+                        <offset/>
+                        <pen width="1">
+                                <color>
+                                        <token>DEPCN</token>
+                                        <transparency/>
+                                </color>
+                        </pen>
+                        <dash>
+                                <start>0.0</start>
+                                <length>2.0</length>
+                        </dash>
+                </simpleLineStyle>
+        </lineInstruction>
+
+        <lineInstruction>
+                <featureReference reference="5"/>
+                <spatialReference reference="2" forward="true"/>
+                <viewingGroup>33020</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>50</drawingPriority>
+                <simpleLineStyle>
+                        <capStyle/>
+                        <joinStyle/>
+                        <offset/>
+                        <pen width="1">
+                                <color>
+                                        <token>DEPCN</token>
+                                        <transparency/>
+                                </color>
+                        </pen>
+                </simpleLineStyle>
+        </lineInstruction>
+        <lineInstruction>
+                <featureReference reference="5"/>
+                <spatialReference reference="3" forward="false"/>
+                <viewingGroup>33020</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>50</drawingPriority>
+                <simpleLineStyle>
+                        <capStyle/>
+                        <joinStyle/>
+                        <intervalLength>4</intervalLength>
+                        <offset/>
+                        <pen width="1">
+                                <color>
+                                        <token>DEPCN</token>
+                                        <transparency/>
+                                </color>
+                        </pen>
+                        <dash>
+                                <start>0.0</start>
+                                <length>2.0</length>
+                        </dash>
+                </simpleLineStyle>
+        </lineInstruction>
+
+        <pointInstruction>
+                <featureReference reference="6"/>
+                <viewingGroup>22220</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>60</drawingPriority>
+                <symbol>
+                        <symbolReference>BUIREL13</symbolReference>
+                        <rotation/>
+                        <rotationCRS/>
+                        <scaleFactor/>
+                </symbol>
+        </pointInstruction>
+
+        <areaInstruction>
+                <featureReference reference="7"/>
+                <viewingGroup>13030</viewingGroup>
+                <displayPlane>S</displayPlane>
+                <drawingPriority>10</drawingPriority>
+                <colorFill>
+                        <color>
+                                <token>DEPMS</token>
+                                <transparency/>
+                        </color>
+                </colorFill>
+        </areaInstruction>
+        <areaInstruction>
+                <featureReference reference="7"/>
+                <viewingGroup>13030</viewingGroup>
+                <displayPlane>S</displayPlane>
+                <drawingPriority>11</drawingPriority>
+                <pixmapFill>
+                        <areaCRS>Global</areaCRS>
+                        <pixmap>
+                                <symbolReference>DIAMOND01</symbolReference>
+                        </pixmap>
+                </pixmapFill>
+        </areaInstruction>
+
+        <areaInstruction>
+                <featureReference reference="8"/>
+                <viewingGroup>13030</viewingGroup>
+                <displayPlane>S</displayPlane>
+                <drawingPriority>10</drawingPriority>
+                <colorFill>
+                        <color>
+                                <token>DEPMD</token>
+                                <transparency/>
+                        </color>
+                </colorFill>
+        </areaInstruction>
+
+        <areaInstruction>
+                <featureReference reference="9"/>
+                <viewingGroup>13030</viewingGroup>
+                <displayPlane>S</displayPlane>
+                <drawingPriority>10</drawingPriority>
+                <colorFill>
+                        <color>
+                                <token>DEPDW</token>
+                                <transparency/>
+                        </color>
+                </colorFill>
+        </areaInstruction>
+
+        <pointInstruction>
+                <featureReference reference="10"/>
+                <viewingGroup>32220</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>40</drawingPriority>
+                <symbol>
+                        <symbolReference>FLGSTF01</symbolReference>
+                        <rotation/>
+                        <rotationCRS/>
+                        <scaleFactor/>
+                </symbol>
+        </pointInstruction>
+
+        <pointInstruction>
+                <featureReference reference="11"/>
+                <viewingGroup>32220</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>40</drawingPriority>
+                <symbol>
+                        <symbolReference>POSGEN01</symbolReference>
+                        <rotation/>
+                        <rotationCRS/>
+                        <scaleFactor/>
+                </symbol>
+        </pointInstruction>
+
+        <pointInstruction>
+                <featureReference reference="12"/>
+                <viewingGroup>32220</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>40</drawingPriority>
+                <symbol>
+                        <symbolReference>TOWERS01</symbolReference>
+                        <rotation/>
+                        <rotationCRS/>
+                        <scaleFactor/>
+                </symbol>
+        </pointInstruction>
+        <textInstruction>
+                <featureReference reference="12"/>
+                <viewingGroup>32220</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>40</drawingPriority>
+                <textPoint>
+                        <element>
+                                <text>A name</text>
+                                <bodySize>12</bodySize>
+                                <verticalOffset/>
+                                <foreground>
+                                        <token>CHBLK</token>
+                                        <transparency/>
+                                </foreground>
+                                <font>
+                                        <serifs>true</serifs>
+                                        <weight>Bold</weight>
+                                        <slant>Upright</slant>
+                                        <proportion>Proportional</proportion>
+                                </font>
+                        </element>
+                        <rotation/>
+                </textPoint>
+        </textInstruction>
+
+        <pointInstruction>
+                <featureReference reference="13"/>
+                <viewingGroup>22220</viewingGroup>
+                <displayPlane>O</displayPlane>
+                <drawingPriority>60</drawingPriority>
+                <symbol>
+                        <symbolReference>POSGEN03</symbolReference>
+                        <rotation/>
+                        <rotationCRS/>
+                        <scaleFactor/>
+                </symbol>
+        </pointInstruction>
+</displayList>

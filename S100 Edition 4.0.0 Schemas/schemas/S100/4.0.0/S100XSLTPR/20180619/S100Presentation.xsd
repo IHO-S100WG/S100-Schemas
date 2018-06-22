@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.iho.int/S100Presentation" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:s100Symbol="http://www.iho.int/S100SymbolDefinition" targetNamespace="http://www.iho.int/S100Presentation" attributeFormDefault="qualified">
+	<xs:import namespace="http://www.iho.int/S100SymbolDefinition" schemaLocation="S100SymbolDefinition.xsd"/>
+	<!-- Simple non empty alpha numeric string type for references -->
+	<xs:simpleType name="Reference">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:pattern value="[0-9a-zA-Z_]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Class Spatial Reference -->
+	<xs:complexType name="SpatialReference">
+		<xs:simpleContent>
+			<xs:extension base="Reference">
+				<xs:attribute name="forward" type="xs:boolean" default="true"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<!-- Class DrawingInstruction -->
+	<xs:complexType name="DrawingInstruction" abstract="true">
+		<xs:sequence>
+			<xs:element name="featureReference" type="Reference"/>
+			<xs:element name="spatialReference" type="SpatialReference" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="viewingGroup" type="xs:string"/>
+			<xs:element name="displayPlane" type="xs:string"/>
+			<xs:element name="drawingPriority" type="xs:int"/>
+			<xs:element name="scaleMinimum" type="xs:positiveInteger" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="scaleMaximum" type="xs:positiveInteger" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Class NullInstruction -->
+	<xs:complexType name="NullInstruction">
+		<xs:complexContent>
+			<xs:extension base="DrawingInstruction"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class pointInstruction -->
+	<xs:complexType name="PointInstruction">
+		<xs:complexContent>
+			<xs:extension base="DrawingInstruction">
+				<xs:sequence>
+					<xs:element name="symbol" type="s100Symbol:Symbol"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class Area Instruction -->
+	<xs:complexType name="AreaInstruction">
+		<xs:complexContent>
+			<xs:extension base="DrawingInstruction">
+				<xs:sequence>
+					<xs:group ref="s100Symbol:AreaFillGroup"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class LineInstruction -->
+	<xs:complexType name="LineInstruction">
+		<xs:complexContent>
+			<xs:extension base="DrawingInstruction">
+				<xs:sequence>
+					<xs:group ref="s100Symbol:LineStyleGroup"/>
+				</xs:sequence>
+				<xs:attribute name="suppression" type="xs:boolean" default="true"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class TextInstruction -->
+	<xs:complexType name="TextInstruction">
+		<xs:complexContent>
+			<xs:extension base="DrawingInstruction">
+				<xs:sequence>
+					<xs:group ref="s100Symbol:Text"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class CoverageInstruction -->
+	<xs:complexType name="CoverageInstruction">
+		<xs:complexContent>
+			<xs:extension base="DrawingInstruction">
+				<xs:sequence>
+					<xs:element name="coverageFill" type="s100Symbol:CoverageFill"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class AugmentedGeometry -->
+	<xs:complexType name="AugmentedGeometry" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="DrawingInstruction">
+				<xs:sequence>
+					<xs:element name="crs" type="s100Symbol:CRSType"/>
+					<xs:group ref="s100Symbol:Text" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class AugmentedPoint -->
+	<xs:complexType name="AugmentedPoint">
+		<xs:complexContent>
+			<xs:extension base="AugmentedGeometry">
+				<xs:sequence>
+					<xs:element name="position" type="s100Symbol:Point"/>
+					<xs:element name="symbol" type="s100Symbol:Symbol" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class AugmentedLineOrArea -->
+	<xs:complexType name="AugmentedLineOrArea" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="AugmentedGeometry">
+				<xs:sequence>
+					<xs:group ref="s100Symbol:LineStyleGroup" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class AugmentedRay -->
+	<xs:complexType name="AugmentedRay">
+		<xs:complexContent>
+			<xs:extension base="AugmentedLineOrArea">
+				<xs:sequence>
+					<xs:element name="rotationCRS" type=" s100Symbol:CRSType" minOccurs="0"/>
+					<xs:element name="direction" type="xs:double"/>
+					<xs:element name="length" type="xs:double"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class AugmentedPath -->
+	<xs:complexType name="AugmentedPath">
+		<xs:complexContent>
+			<xs:extension base="AugmentedLineOrArea">
+				<xs:sequence>
+					<xs:element name="path" type="s100Symbol:Path"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class AugmentedArea -->
+	<xs:complexType name="AugmentedArea">
+		<xs:complexContent>
+			<xs:extension base="AugmentedPath">
+				<xs:sequence>
+					<xs:group ref="s100Symbol:AreaFillGroup" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Group DisplayInstruction -->
+	<xs:group name="DisplayInstruction">
+		<xs:choice>
+			<xs:element name="nullInstruction" type="NullInstruction"/>
+			<xs:element name="pointInstruction" type="PointInstruction"/>
+			<xs:element name="lineInstruction" type="LineInstruction"/>
+			<xs:element name="areaInstruction" type="AreaInstruction"/>
+			<xs:element name="coverageInstruction" type="CoverageInstruction"/>
+			<xs:element name="textInstruction" type="TextInstruction"/>
+			<xs:element name="augmentedPoint" type="AugmentedPoint"/>
+			<xs:element name="augmentedRay" type="AugmentedRay"/>
+			<xs:element name="augmentedPath" type="AugmentedPath"/>
+			<xs:element name="augmentedArea" type="AugmentedArea"/>
+		</xs:choice>
+	</xs:group>
+	<!-- Class DisplayList -->
+	<xs:complexType name="DisplayList">
+		<xs:sequence>
+			<xs:group ref="DisplayInstruction" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- An element of type DisplayList -->
+	<xs:element name="displayList" type="DisplayList"/>
+</xs:schema>

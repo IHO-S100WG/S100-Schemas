@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © Copyright 2011, 2014-2016,2018 International Hydrographic Organisation 
+License (Draft)
+Certain parts of this document refer to or are based on the standards, documents, schemas,
+or other material of the International Organization for Standardization (ISO), Open Geospatial
+Consortium (OGC), International Hydrographic Organization / Organisation Hydrographique
+Internationale (IHO/OHI).
+The ISO material can be obtained from any ISO member and from the Web site of the ISO Central
+Secretariat at www.iso.org.
+The OGC material can be obtained from the OGC Web site at www.opengeospatial.org.
+The IHO material can be obtained from the IHO Web site at www.iho.int or from the International
+Hydrographic Bureau.
+
+Permission to copy and distribute this document is hereby granted provided that this notice is
+retained on all copies, and that the IHO is credited when the material is redistributed
+or used in part or whole in derivative works.
+Redistributions in binary form must reproduce this notice in the documentation and/or other
+materials provided with the distribution.
+
+Disclaimer
+This work is provided by the copyright holders and contributors "as is" and any express or implied
+warranties, including, but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose are disclaimed. In no event shall the copyright owner or contributors be
+liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including,
+but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or
+business interruption) however caused and on any theory of liability, whether in contract, strict
+liability, or tort (including negligence or otherwise) arising in any way out of the use of this
+software, even if advised of the possibility of such damage.
+-->
+<!-- Date: 04 September 2014; Modification: Updated for S-100 Ed. 2.0.0 -->
+<!-- Date: 16 September 2014; Modification: added schema version; spelling corrections -->
+<!-- Date: 2015-09-21 Raphael Malyankar
+  Modifications: S100_ prefixes added to types defined in S-100 (Multiplicity);
+    removed "aggregation" from S100_CD_FeatureUseType;
+    2016-07-15: Updated copyright/license statement
+    Note: This should be updated to use the ISO schemas or a profile of them wherever S-100 is using
+    the ISO type
+    2016-07-21: Added value types beginning with upper case to S100_CD_AttributeValueType (temporary
+      fix(?) to bypass case discrepancy between types in the register model and application schema
+  2017-07-24 (Raphael Malyankar): Removed uppercase value types Text, Real, Boolean, Integer, Enumeration, Date, Time,
+    DateTime from attribute value type enumeration; changed schema version numbering to conform to
+    <S-100 version>-<build date> convention
+  2018-05-02 (Raphael Malyankar): version number update for 4.0
+-->
+
+  <!-- Prepared for the International Hydrographic Organisation (IHO).
+    Contributors: Holger Bothien (SevenCs/Chartworld); Tom Richardson (UKHO); Sewoong Oh (KRISO);
+    Yong Baek (KHOA); Raphael Malyankar (Jeppesen); Raphael Malyankar
+  -->
+<xs:schema targetNamespace="http://www.iho.int/S100FD" elementFormDefault="qualified" 
+           xmlns="http://www.iho.int/S100FD" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:s100Base="http://www.iho.int/S100Base" 
+           xmlns:s100CI="http://www.iho.int/S100CI" version="4.0.0-20180502">
+  <xs:import namespace="http://www.iho.int/S100Base" schemaLocation="S100Base.xsd" />
+  <xs:import namespace="http://www.iho.int/S100CI" schemaLocation="S100CI.xsd" />
+  <xs:simpleType name="ItemIdentifier">
+    <xs:restriction base="xs:ID">
+      <xs:minLength value="2" />
+      <xs:pattern value="_[0-9]*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CamelCaseId">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:pattern value="[$A-Za-z][A-Za-z0-9_]*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RE_ItemStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="valid" />
+      <xs:enumeration value="superseded" />
+      <xs:enumeration value="retired" />
+      <xs:enumeration value="notValid" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="S100_CD_AlphaCode">
+    <xs:restriction base="xs:string">
+      <xs:length value="6" />
+      <xs:pattern value="[a-zA-Z_$][0-9a-zA-Z_]{5}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="S100_CD_AttributeValueType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="boolean" />
+      <xs:enumeration value="enumeration" />
+      <xs:enumeration value="integer" />
+      <xs:enumeration value="real" />
+      <xs:enumeration value="text" />
+      <xs:enumeration value="date" />
+      <xs:enumeration value="time" />
+      <xs:enumeration value="dateTime" />
+      <xs:enumeration value="URI" />
+      <xs:enumeration value="URL" />
+      <xs:enumeration value="URN" />
+      <xs:enumeration value="S100_CodeList" />
+      <xs:enumeration value="S100_TruncatedDate" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="S100_CD_FeatureUseType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="geographic" />
+      <xs:enumeration value="meta" />
+      <xs:enumeration value="cartographic" />
+      <xs:enumeration value="theme" />    
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="S100_CD_QuantitySpecification">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="angularVelocity" />
+      <xs:enumeration value="area" />
+      <xs:enumeration value="density" />
+      <xs:enumeration value="duration" />
+      <xs:enumeration value="frequency" />
+      <xs:enumeration value="length" />
+      <xs:enumeration value="mass" />
+      <xs:enumeration value="planeAngle" />
+      <xs:enumeration value="power" />
+      <xs:enumeration value="pressure" />
+      <xs:enumeration value="salinity" />
+      <xs:enumeration value="speed" />
+      <xs:enumeration value="temperature" />
+      <xs:enumeration value="volume" />
+      <xs:enumeration value="weight" />
+      <xs:enumeration value="otherQuantity" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SimilarityToSource">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="identical" />
+      <xs:enumeration value="restyled" />
+      <xs:enumeration value="contextAdded" />
+      <xs:enumeration value="generalization" />
+      <xs:enumeration value="specialization" />
+      <xs:enumeration value="unspecified" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Disposition">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="withdrawn"/>
+      <xs:enumeration value="accepted"/>
+      <xs:enumeration value="notAccepted"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="S100_CD_DecisionStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="pending"/>
+      <xs:enumeration value="tentative"/>
+      <xs:enumeration value="final"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProposalType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="addition"/>
+      <xs:enumeration value="clarification"/>
+      <xs:enumeration value="supersession"/>
+      <xs:enumeration value="retirement"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ReferenceDocument">
+    <xs:sequence>
+      <xs:element name="id" type="xs:ID" />
+      <xs:element name="citation" type="s100CI:Citation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_RE_Reference">
+    <xs:sequence>
+      <xs:element name="sourceDocument" type="xs:IDREF" maxOccurs="1" minOccurs="1" />
+      <xs:element name="referenceIdentifier" type="xs:string" maxOccurs="unbounded" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_RE_ReferenceSource">
+    <xs:complexContent>
+      <xs:extension base="S100_RE_Reference">
+        <xs:sequence>
+          <xs:element name="similarity" type="SimilarityToSource" maxOccurs="1" minOccurs="1" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="S100_RE_ManagementInfo">
+    <xs:sequence>
+      <xs:element name="decisionStatus" type="S100_CD_DecisionStatus"/>
+      <xs:element name="proposalType" type="ProposalType"/>
+      <xs:element name="submittingOrganisation" type="xs:string"/>
+      <xs:element name="proposedChange" type="xs:string"/>
+      <xs:element name="justification" type="xs:string"/>
+      <xs:element name="dateProposed" type="xs:date"/>
+      <xs:element name="dateDisposed" type="xs:date"/>
+      <xs:element name="disposition" type="Disposition"/>
+      <xs:element name="decision" type="xs:string"/>
+      <xs:element name="controlBodyNotes" type="xs:string" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_RE_RegisterItem">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" maxOccurs="1" minOccurs="1" />
+      <xs:element name="definition" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="remarks" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="itemStatus" type="RE_ItemStatus" maxOccurs="1" minOccurs="1" />
+      <xs:element name="dateAccepted" type="xs:date" minOccurs="1" maxOccurs="1" />
+      <xs:element name="dateAmended" type="xs:date" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="itemIdentifier" type="ItemIdentifier" use="required" />
+  </xs:complexType>
+  <xs:complexType name="S100_CD_RegisterItem" abstract="true">
+    <xs:complexContent>
+    <xs:extension base="S100_RE_RegisterItem">
+      <xs:sequence>
+        <xs:element name="camelCaseId" type="CamelCaseId" maxOccurs="1" minOccurs="1" />
+        <xs:element name="alias" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="referenceSource" type="S100_RE_ReferenceSource" maxOccurs="1" minOccurs="0" />
+        <xs:element name="S100_CD_reference" type="S100_RE_Reference" maxOccurs="unbounded" minOccurs="0" />
+        <xs:element name="managementInfo" type="S100_RE_ManagementInfo" maxOccurs="unbounded" minOccurs="1">
+        </xs:element>
+      </xs:sequence>
+    </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_FeatureConcept">
+    <xs:complexContent>
+      <xs:extension base="S100_CD_RegisterItem">
+        <xs:sequence>
+          <xs:element name="alphaCode" type="S100_CD_AlphaCode" maxOccurs="1" minOccurs="0" />
+          <xs:element name="featureUseType" type="S100_CD_FeatureUseType" maxOccurs="1" minOccurs="1" />
+          <xs:element name="distinction" type="CamelCaseId" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_InformationConcept">
+    <xs:complexContent>
+      <xs:extension base="S100_CD_RegisterItem">
+        <xs:sequence>
+          <xs:element name="alphaCode" type="S100_CD_AlphaCode" maxOccurs="1" minOccurs="0" />
+          <xs:element name="distinction" type="CamelCaseId" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_AttributeConstraints">
+    <xs:sequence>
+      <xs:element name="stringLength" type="xs:positiveInteger" maxOccurs="1" minOccurs="0" />
+      <xs:element name="textPattern" type="xs:string" maxOccurs="1" minOccurs="0" />
+      <xs:element name="range" type="s100Base:S100_NumericRange" maxOccurs="1" minOccurs="0" />
+      <xs:element name="precision" type="xs:nonNegativeInteger" maxOccurs="1" minOccurs="0"/> 
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_AttributeConcept" abstract="true">
+    <xs:complexContent>
+      <xs:extension base="S100_CD_RegisterItem">
+        <xs:sequence>
+          <xs:element name="alphaCode" type="S100_CD_AlphaCode" maxOccurs="1" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_SimpleAttributeConcept">
+    <xs:complexContent>
+      <xs:extension base="S100_CD_AttributeConcept">
+        <xs:sequence>
+          <xs:element name="valueType" type="S100_CD_AttributeValueType" minOccurs="1" maxOccurs="1" />
+          <xs:element name="quantitySpecification" type="S100_CD_QuantitySpecification" maxOccurs="1" minOccurs="0" />
+          <xs:element name="constraints" type="S100_CD_AttributeConstraints" maxOccurs="1" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SubAttribute">
+    <xs:sequence>
+      <xs:element name="camelCaseId" type="CamelCaseId" maxOccurs="1" minOccurs="0" />
+      <xs:element name="cardinality" type="s100Base:S100_Multiplicity" maxOccurs="1" minOccurs="1" />
+      <xs:element name="sequential" type="xs:boolean" maxOccurs="1" minOccurs="1" default="false" />
+    </xs:sequence>
+    <xs:attribute name="attribute" type="xs:IDREF" use="required" />
+  </xs:complexType>
+  <xs:complexType name="S100_CD_ComplexAttributeConcept">
+    <xs:complexContent>
+      <xs:extension base="S100_CD_AttributeConcept">
+        <xs:sequence>
+          <xs:element name="subAttribute" type="SubAttribute" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_EnumeratedValueConcept">
+    <xs:complexContent>
+      <xs:extension base="S100_CD_RegisterItem">
+        <xs:sequence>
+          <xs:element name="numericCode" type="xs:positiveInteger" maxOccurs="1" minOccurs="1" />
+          <xs:element name="associatedAttribute" type="CamelCaseId" maxOccurs="1" minOccurs="1" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RegisterInformation">
+    <xs:sequence>
+      <xs:element name="operatingLanguage" type="s100Base:Locale" />
+      <xs:element name="contentSummary" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="URI" type="s100CI:OnlineResource" minOccurs="1" maxOccurs="1" />
+      <xs:element name="dateOfLastChange" type="xs:date" maxOccurs="1" minOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ReferenceDocuments">
+    <xs:sequence>
+      <xs:element name="referenceDocument" type="ReferenceDocument" maxOccurs="unbounded" minOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_FeatureConcepts">
+    <xs:sequence>
+      <xs:element name="S100_CD_FeatureConcept" type="S100_CD_FeatureConcept" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_InformationConcepts">
+    <xs:sequence>
+      <xs:element name="S100_CD_InformationConcept" type="S100_CD_InformationConcept" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_SimpleAttributeConcepts">
+    <xs:sequence>
+      <xs:element name="S100_CD_SimpleAttributeConcept" type="S100_CD_SimpleAttributeConcept" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_ComplexAttributeConcepts">
+    <xs:sequence>
+      <xs:element name="S100_CD_ComplexAttributeConcept" type="S100_CD_ComplexAttributeConcept" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_CD_EnumeratedValueConcepts">
+    <xs:sequence>
+      <xs:element name="S100_CD_EnumeratedValueConcept" type="S100_CD_EnumeratedValueConcept" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="S100_RE_Register">
+    <xs:sequence>
+      <xs:element name="registerInformation" type="RegisterInformation" maxOccurs="1" minOccurs="1" />
+      <xs:element name="referenceDocuments" type="ReferenceDocuments" maxOccurs="1" minOccurs="0" />
+      <xs:element name="S100_CD_SimpleAttributeConcepts" type="S100_CD_SimpleAttributeConcepts" minOccurs="0" maxOccurs="1" />
+      <xs:element name="S100_CD_ComplexAttributeConcepts" type="S100_CD_ComplexAttributeConcepts" minOccurs="0" maxOccurs="1" />
+      <xs:element name="S100_CD_EnumeratedValueConcepts" type="S100_CD_EnumeratedValueConcepts" minOccurs="0" maxOccurs="1" />
+      <xs:element name="S100_CD_FeatureConcepts" type="S100_CD_FeatureConcepts" minOccurs="0" maxOccurs="1" />
+      <xs:element name="S100_CD_InformationConcepts" type="S100_CD_InformationConcepts" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Query">
+    <xs:sequence>
+      <xs:element name="qDateTime" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="registry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="query" minOccurs="0" maxOccurs="1" type="Query">
+        </xs:element>
+        <xs:element name="register" maxOccurs="unbounded" type="S100_RE_Register" minOccurs="0">
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

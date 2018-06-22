@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.opengis.net/gml/3.2"
+	elementFormDefault="qualified" version="4.0.0-20180502">
+	<annotation>
+		<appinfo>s100_gmlProfile.xsd</appinfo>
+		<documentation>Experimental extensions to original S-100 GML 3.2.1 Profile Compliance Levels 1 and 2. Not formally part of the S-100 GML profile though it defines items in the same namespace</documentation>
+	</annotation>
+<!-- ============================================================================================= -->
+<!-- S-100 GML profile extensions.                                                                 -->
+<!-- ============================================================================================= -->
+
+<!-- =============================================================================================
+	Copyright, license, and disclaimer
+	© Copyright 2015 (IHB - Formal Copyright statement tbd)
+	Extensions for 4.0.0: © Copyright 2018 IHO
+	
+	License
+	Certain parts of this document refer to or are based on the standards, documents, schemas, or other material
+	of the International Organization for Standardization (ISO), Open Geospatial Consortium (OGC), and International
+	Hydrographic Organization / Organisation Hydrographique Internationale (IHO/OHI).
+	The ISO material can be obtained from any ISO member and from the Web site of the ISO Central Secretariat
+	at www.iso.org.
+	The OGC material can be obtained from the OGC Web site at www.opengeospatial.org.
+	The IHO material can be obtained from the IHO Web site at www.iho.int or from the International Hydrographic
+	Bureau.
+	
+	Permission to copy and distribute this document is hereby granted provided that this notice is retained
+	on all copies, and that IHO & Jeppesen are credited when the material is redistributed or used in
+	part or whole in derivative works.
+	Redistributions in binary form must reproduce this notice in the documentation and/or other materials
+	provided with the distribution.
+	
+	Disclaimer
+	This work is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+	including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose
+	are disclaimed. In no event shall the copyright owner or contributors be liable for any direct, indirect,
+	incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute
+	goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of
+	liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way
+	out of the use of this software, even if advised of the possibility of such damage.
+	
+	Document history
+	Version 1.0	2015-09	Raphael Malyankar (Jeppesen)	Initial version
+	Update: 1.0.1 201612-15 Raphael Malyankar (none)	changed import statement for Xlink to W3C's fixed location for Xlink 1.1
+														from the location for the latest XLink (http://www.w3.org/1999/xlink)
+	V 3.0.0-20170331	Raphael Malyankar (none)	version number changed to <S100Version>-<Build date> format
+	V 4.0.0-20180502	Raphael Malyankar			Version number updated for Edition 4.0.0
+	================================================================================================== -->
+
+	<include schemaLocation="S100_gmlProfile.xsd"/>
+
+	<import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="http://www.w3.org/XML/2008/06/xlink.xsd"/>
+	<!-- =========================================================== -->
+	<!-- ========= Subset of gmlBase.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+
+	<!--  We can bring it back, if requested (TSMAD 27)
+	<element name="abstractStrictAssociationRole" type="gml:AssociationRoleType" abstract="true">
+		<annotation>
+			<documentation>This element shows how an element declaration may include a Schematron
+				constraint to limit the property to act in either inline or by-reference mode, but
+				not both.</documentation>
+		</annotation>
+	</element>
+	-->
+
+
+	<!-- =========================================================== -->
+	<!-- ========= Subset of feature.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+	
+
+	<!-- =========================================================== -->
+	<!-- ========= Subset of geometryBasic0d1d.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+
+	
+	<!-- ====================== Geometry Types for this profile =============-->
+
+	
+	<!-- =========================================================== -->
+	<!-- ========= Subset of geometryBasic2D.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+	
+	
+	<!-- =========================================================== -->
+	<!-- ========= Subset of geometryPrimitives.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+	
+	
+	<!-- =========================================================== -->
+	<!-- ========= Subset of geometryComplexes.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+
+	
+	<!-- =========================================================== -->
+	<!-- ========= Subset of geometryAggregates.xsd for this profile -->
+	<!-- =========================================================== -->
+	<!-- multipoint types too can have ownership attribute group; reintroduce the definition in the GML profile if needed for gridded data -->
+	<!-- postponed - gridded data will use the HDF5 encoding -->
+	<!--<complexType name="MultiPointPropertyType">
+		<annotation>
+			<documentation>A property that has a collection of points as its value domain may either be an appropriate geometry element encapsulated in an element of this type or an XLink reference to a remote geometry element (where remote includes geometry elements located elsewhere in the same document). Either the reference or the contained element shall be given, but neither both nor none.</documentation>
+		</annotation>
+		<sequence minOccurs="0">
+			<element ref="gml:MultiPoint"/>
+		</sequence>
+		<attributeGroup ref="gml:AssociationAttributeGroup"/>
+		<attributeGroup ref="gml:OwnershipAttributeGroup"/>
+	</complexType>-->
+	
+	<!-- =========================================================== -->
+	<!-- ========= Subset of temporal.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+	
+
+	<!-- =========================================================== -->
+	<!-- ========= Subset of basicTypes.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+	
+
+	<!-- =========================================================== -->
+	<!-- ========= Subset of valueObjects.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+	
+
+	<!-- =========================================================== -->
+	<!-- ========= Subset of measures.xsd for this profile ===== -->
+	<!-- =========================================================== -->
+	
+
+</schema>

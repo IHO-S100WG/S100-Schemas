@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © Copyright 2011, 2014-2016,2018 International Hydrographic Organisation
+License (Draft)
+Certain parts of this document refer to or are based on the standards, documents, schemas,
+or other material of the International Organization for Standardization (ISO), Open Geospatial
+Consortium (OGC), International Hydrographic Organization / Organisation Hydrographique
+Internationale (IHO/OHI).
+The ISO material can be obtained from any ISO member and from the Web site of the ISO Central
+Secretariat at www.iso.org.
+The OGC material can be obtained from the OGC Web site at www.opengeospatial.org.
+The IHO material can be obtained from the IHO Web site at www.iho.int or from the International
+Hydrographic Bureau.
+
+Permission to copy and distribute this document is hereby granted provided that this notice is
+retained on all copies, and that the IHO is credited when the material is redistributed
+or used in part or whole in derivative works.
+Redistributions in binary form must reproduce this notice in the documentation and/or other
+materials provided with the distribution.
+
+Disclaimer
+This work is provided by the copyright holders and contributors "as is" and any express or implied
+warranties, including, but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose are disclaimed. In no event shall the copyright owner or contributors be
+liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including,
+but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or
+business interruption) however caused and on any theory of liability, whether in contract, strict
+liability, or tort (including negligence or otherwise) arising in any way out of the use of this
+software, even if advised of the possibility of such damage.
+-->
+<!-- Date: 04 September 2014; Modification: Updated for S-100 Ed. 2.0.0
+
+-->
+<!-- Date: 16 September 2014; Modification: added schema version; -->
+<!-- 2015-09-21 Raphael Malyankar Added MD_ClassificationCode enumeration; correct spelling of literal "distributor" in RoleCode
+     2016-07-15: Updated copyright/license statement
+     Note: This should be updated to use the ISO schemas or a profile of them wherever S-100 is using the ISO type
+  2018-05-02 (Raphael Malyankar): Corrected Citation/aternateTitle to alternateTitle; version number updated to 4.0.0-20180502.
+      This build includes the changes approved for S-100 4.0.0 WITHOUT the 19115-1 revisions, intended as an interim version
+      that minimizes the changes to the FCB.
+      The updates for 19115-1 ans 19115-3 will be coordinated with Edition 4.0.0 updates of Part 5 and FCB, have a different
+      build number, and be in a different build folder.
+ -->
+  <!-- Prepared for the International Hydrographic Organisation (IHO).
+    Contributors: Holger Bothien (SevenCs/Chartworld); Tom Richardson (UKHO); Sewoong Oh (KRISO);
+    Yong Baek (KHOA); Raphael Malyankar (Jeppesen)
+  -->
+<xs:schema targetNamespace="http://www.iho.int/S100CI" elementFormDefault="qualified" 
+           xmlns="http://www.iho.int/S100CI" 
+           xmlns:mstns="http://tempuri.org/XMLSchema.xsd" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" version="4.0.0-20180502">
+  <xs:simpleType name="DateTypeCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="creation" />
+      <xs:enumeration value="publication" />
+      <xs:enumeration value="revision" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="dateExt">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="date" type="xs:date" />
+        <xs:element name="yearMonth" type="xs:gYearMonth" />
+        <xs:element name="year" type="xs:gYear" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Date">
+    <xs:sequence>
+      <xs:element name="date" type="dateExt" nillable="true" />
+      <xs:element name="dateType" type="DateTypeCode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PresentationFormCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="documentDigital" />
+      <xs:enumeration value="documentHardcopy" />
+      <xs:enumeration value="imageDigital" />
+      <xs:enumeration value="mapDigital" />
+      <xs:enumeration value="mapHardcopy" />
+      <xs:enumeration value="modelDigital" />
+      <xs:enumeration value="modelHardcopy" />
+      <xs:enumeration value="profileDigital" />
+      <xs:enumeration value="profileHardcopy" />
+      <xs:enumeration value="tableDigital" />
+      <xs:enumeration value="tableHardcopy" />
+      <xs:enumeration value="videoDigital" />
+      <xs:enumeration value="videoHardcopy" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RoleCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="resourceProvider" />
+      <xs:enumeration value="custodian" />
+      <xs:enumeration value="owner" />
+      <xs:enumeration value="user" />
+      <xs:enumeration value="distributor" />
+      <xs:enumeration value="originator" />
+      <xs:enumeration value="pointOfContact" />
+      <xs:enumeration value="principalInvestigator" />
+      <xs:enumeration value="processor" />
+      <xs:enumeration value="publisher" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OnlineFunctionCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="download" />
+      <xs:enumeration value="information" />
+      <xs:enumeration value="offlineAccess" />
+      <xs:enumeration value="order" />
+      <xs:enumeration value="search" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MD_ClassificationCode">
+    <xs:annotation>
+      <xs:documentation>ISO 19115:2006 MD_ClassificationCode</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="unclassified"/>
+      <xs:enumeration value="restricted"/>
+      <xs:enumeration value="confidential"/>
+      <xs:enumeration value="secret"/>
+      <xs:enumeration value="topSecret"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Series">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="issueIdentification" type="xs:string" maxOccurs="1" minOccurs="0" />
+      <xs:element name="page" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Telephone">
+    <xs:sequence>
+      <xs:element name="voice" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="facsimile" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Address">
+    <xs:sequence>
+      <xs:element name="deliveryPoint" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="city" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="administrativeArea" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="postalCode" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="country" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="electronicMailAddress" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OnlineResource">
+    <xs:sequence>
+      <xs:element name="url" type="xs:string" maxOccurs="1" minOccurs="1" />
+      <xs:element name="protocol" type="xs:string" maxOccurs="1" minOccurs="0" />
+      <xs:element name="applicationProfile" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="function" type="OnlineFunctionCode" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Contact">
+    <xs:sequence>
+      <xs:element name="phone" type="Telephone" minOccurs="0" maxOccurs="1" />
+      <xs:element name="address" type="Address" minOccurs="0" maxOccurs="1" />
+      <xs:element name="onlineResource" type="OnlineResource" minOccurs="0" maxOccurs="1" />
+      <xs:element name="hoursOfService" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="contactInstructions" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResponsibleParty">
+    <xs:sequence>
+      <xs:element name="individualName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="organisationName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="positionName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="contactInfo" type="Contact" minOccurs="0" maxOccurs="1" />
+      <xs:element name="role" type="RoleCode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Citation">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string" />
+      <xs:element name="alternateTitle" type="xs:string" minOccurs="0" maxOccurs="unbounded" /><!-- Note, correction needed! -->
+      <xs:element name="date" type="Date" minOccurs="1" maxOccurs="unbounded" />
+      <xs:element name="edition" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="editionDate" type="dateExt" minOccurs="0" maxOccurs="1" ><xs:annotation><xs:documentation>Content type allows partial date</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="identifier" type="xs:string" minOccurs="0" maxOccurs="1" ><xs:annotation><xs:documentation>type differs from ISO 19115</xs:documentation></xs:annotation></xs:element>
+<!--      <xs:element name="identifierType" type="xs:string" minOccurs="0" maxOccurs="1" />
+-->      <xs:element name="citedResponsibleParty" type="ResponsibleParty" minOccurs="0" maxOccurs="1" />
+      <xs:element name="presentationForm" type="PresentationFormCode" minOccurs="0" maxOccurs="1" />
+      <xs:element name="series" type="Series" maxOccurs="1" minOccurs="0" />
+      <xs:element name="otherCitationDetails" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="collectiveTitle" type="xs:string" maxOccurs="1" minOccurs="0" />
+      <xs:element name="ISBN" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="ISSN" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
