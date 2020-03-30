@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD XML Catalogs V1.1//EN" "http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd">
+<!-- ================================================================================ -->
+<!-- Sample XML catalog for S-100 generic schemas. 								      -->
+<!-- See the OASIS XML catalog standard for information on XML catalogs:
+     URL: https://www.oasis-open.org/standards#xmlcatalogsv1.1
+     See your XML tool's documentation for information on how to configure it to
+     use XML catalogs.                                                                -->
+<!-- ================================================================================ -->
+<!--
+© Copyright 2020
+Prepared under contract for NOAA (Original)
+
+License
+Permission to copy and distribute this document is hereby granted provided that this notice is
+retained on all copies, and that IHO, NOAA and the contributors are credited when the material is
+redistributed or used in part or whole in derivative works.
+Redistributions in binary form must reproduce this notice in the documentation and/or other
+materials provided with the distribution.
+
+Disclaimer
+This work is provided by the copyright holders and contributors "as is" and any express or implied
+warranties, including, but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose are disclaimed. In no event shall the copyright owner or contributors be
+liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including,
+but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or
+business interruption) however caused and on any theory of liability, whether in contract, strict
+liability, or tort (including negligence or otherwise) arising in any way out of the use of this
+software, even if advised of the possibility of such damage.
+
+Document history
+Version 4.0.0-20200326	2020-03-26	Raphael Malyankar for NOAA
+    Initial sample, prepared for use with S-100 4.0.0 generic schemas (FINAL) dated December 2018 and/or
+    updated in May 2019. Maps broken ISO URLs for ISO 19136 and ISO 19139 schemas to the new locations on
+    the ISO standards web site.
+-->
+
+<!-- Note:
+     See the OASIS XML catalog standard for information on other kinds of rewrite rules. Report any
+     other broken links in either the S-100 generic schemas or the ISO schemas used by them to Raphael.
+     This file is an example and you can customize it for your local installation.
+-->
+
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+    <rewriteURI uriStartString="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19136_Schemas/"
+        rewritePrefix="https://standards.iso.org/iso/19136/"/>
+    <rewriteURI uriStartString="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/"
+        rewritePrefix="https://standards.iso.org/iso/19139/Schemas/"/>
+
+
+
+</catalog>
