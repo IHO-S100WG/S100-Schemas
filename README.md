@@ -5,7 +5,7 @@ The May 2019 update adds the ID attribute to the generic exchange catalogue sche
 
 The S-100 Edition 4.0.0 Schemas <em>folder</em> in this branch is now obsolete and awaiting deletion.
 
-2020-04-17: The S-100 4.0.0 schemas zip file has been updated to work around broken links in schemaLocation(s) in ISO schemas.
+2020-04-17: The S-100 4.0.0 schemas zip file has been updated to work around broken links in schemaLocation(s) in ISO schemas. (As of 17 April this fix is only in the FixSchemaLocationLinks branch, it has not been merged with the master.)
 
 ## Updated Portrayal schemas
 The zip file S100_4_1_0_S100XSLTPR_20191115.zip contains the portrayal files from schemas/S100/4.0.0/S100XSLTPR/ with updates to four files implementing the changes approved at S-100 WG4 (See S-100WG4-4.6, 4.7, and 4.8 for descriptions of the updates). The other files in S100XSLTPR have not been changed in this zip but are included because some of the updated files have import or use dependencies on some of the unchanged files. The S-100 revision number for this zip has been incremented because the proposed changes are extensions to S-100 4.0.0.
