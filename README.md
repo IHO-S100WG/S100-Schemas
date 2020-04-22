@@ -16,4 +16,4 @@ The zip file InteroperabilitySchemasAndSample.zip contains the XML schemas and s
 The exchange catalog file CATALOG.XML in the sample requires ISO schemas in order to validate, which are not included in this zip. They can be obtained from the S-100 4.0.0 schema distribution zip file on this site.
 
 ## XML Catalog
-The XMLCatalog.xml file is an "XML Catalog" conforming to the OASIS standard for XML catalogs (URL: https://www.oasis-open.org/standards#xmlcatalogsv1.1), for mapping broken links in the ISO TC211 schemas on standards.iso.org to working links. It can be used with validation tools that implement the XML Catalogs standard.
+The XMLCatalog.xml file is an "XML Catalog" conforming to the OASIS standard for XML catalogs (URL: https://www.oasis-open.org/standards#xmlcatalogsv1.1), for mapping broken links in the ISO TC211 schemas on standards.iso.org to working links. It can be used with validation tools that implement the XML Catalogs standard. This file works with OxygenXML. The file "CustomCatalog.xml" is an "XML Catalog" for use with Altova XMLSpy. The differences in the two catalog files are minor, and are due to differences in tool behavior.
