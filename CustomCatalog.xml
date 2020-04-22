@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 2020-04-20 Sample CustomCatalog.xml for use with Altova XMLSpy to validate S-100 4.0.0 schemas and examples. Prepared by Raphael Malyankar. -->
+<!-- This catalog can be used at the custom catalog for XMLSpy (or the rewrite rules added to an existing custom catalog.
+     See the Altova XMLSpy documentation for information on whether your tools support "XML Catalog" and where to find/install custom catalogs.
+     In XMLSpy the location is generally the MyDocuments\Altova\XMLSpy folder (or equivalent for the XMLSpy version you are using). -->
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:entity:xmlns:xml:catalog
+Catalog.xsd">
+    <rewriteURI uriStartString="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19136_Schemas/"
+        rewritePrefix="https://standards.iso.org/iso/19136/"/>
+    <rewriteURI uriStartString="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/"
+        rewritePrefix="https://standards.iso.org/iso/19139/Schemas/"/>
+    <rewriteURI uriStartString="http://standards.iso.org/" rewritePrefix="https://standards.iso.org/"/>
+</catalog>
