@@ -8,7 +8,9 @@ The S-100 Edition 4.0.0 Schemas <em>folder</em> in this branch is now obsolete a
 2020-04-17: The S-100 4.0.0 schemas zip file has been updated to work around broken links in schemaLocation(s) in ISO schemas.
 
 ## Updated Portrayal schemas
-The zip file S100_4_1_0_S100XSLTPR_20191115.zip contains the portrayal files from schemas/S100/4.0.0/S100XSLTPR/ with updates to four files implementing the changes approved at S-100 WG4 (See S-100WG4-4.6, 4.7, and 4.8 for descriptions of the updates). The other files in S100XSLTPR have not been changed in this zip but are included because some of the updated files have import or use dependencies on some of the unchanged files. The S-100 revision number for this zip has been incremented because the proposed changes are extensions to S-100 4.0.0.
+The zip file S100_5_0_0_S100XSLTPR_20200507.zip contains the draft of portrayal schemas with updates approved as of S-100 WG5. The S-100 revision number for this zip has been incremented to 5.0.0 because the proposed changes are intended for the 5.0.0 release of S-100. However, note that as of the upload date, these files are drafts and may be further updated before Edition 5.0.0 is published.
+
+The previous draft zip from November 2019 (S100_4_10_S100XSLTPR_20191115.zip) has been removed. Note also that the build folder inside the new draft zip file has changed from 20191115 in the November zip file to 20200507 in this zip file.
 
 ## Interoperability schemas
 The zip file InteroperabilitySchemasAndSample.zip contains the XML schemas and sample(s) for interoperability as described in the drafts of S-100 Part 16 and S-98. 
