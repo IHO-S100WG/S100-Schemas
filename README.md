@@ -3,7 +3,7 @@ S100 Edition 4.0.0 Schemas uploaded as ZIP file.  See accompanying README docx f
 
 The May 2019 update adds the ID attribute to the generic exchange catalogue schema. It also adds exchange catalogue schemas for S-98, S-101, S-102, S-111, and S-127.
 
-The S-100 Edition 4.0.0 Schemas <em>folder</em> in this branch is now obsolete and awaiting deletion.
+The S-100 Edition 4.0.0 Schemas <em>folder</em> in this branch is now obsolete and awaiting deletion. (Update 12 August 2020 - this obsolete folder has been removed.)
 
 2020-04-17: The S-100 4.0.0 schemas zip file has been updated to work around broken links in schemaLocation(s) in ISO schemas.
 

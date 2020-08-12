@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<compositeLineStyle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="s100LineStyle.xsd">
-    <lineStyle>
-        <pen width=".3">
-            <color transparency="0.5">CHBLK</color>
-         </pen>
-    </lineStyle>
-    <lineStyleReference reference="bla"/>
-</compositeLineStyle>
