@@ -1,3 +1,0 @@
-The January 2020 draft of S-98 uses the same XSD schema files as the January 2020 draft of S-100 4.1.x and therefore the S-98 XSD includes the S-100 XSD as-is and does not define any local elements. S-98 imposes some additional constraints on the S-100 interoperability catalogue schema, which are tested by the Schematron rules file in the S-98 schema  folder.
-The dictionary file referred to in S-98 can be found under the "resources" folder.
-The April 2022 version of the schemas is the same as in the January 2020 draft, noting that as of April 20 the version number of the draft submitted to HSSC14 is still 0.4 in the S-98 document.
