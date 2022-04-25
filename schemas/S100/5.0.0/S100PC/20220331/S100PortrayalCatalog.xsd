@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =============================================================================================
+	Copyright and License
+	Copyright 2013-2017,2018,2022 IHO
+	Certain parts of this document may refer to or are based on the standards, documents, schemas, or other material
+	of the International Organization for Standardization (ISO), Open Geospatial Consortium (OGC), International
+	Hydrographic Organization / Organisation Hydrographique Internationale (IHO/OHI).
+	The ISO material can be obtained from any ISO member and from the Web site of the ISO Central Secretariat
+	at www.iso.org.
+	The OGC material can be obtained from the OGC Web site at www.opengeospatial.org.
+	The IHO material can be obtained from the IHO Web site at www.iho.int or from the International Hydrographic
+	Bureau.
+	
+	Permission to copy and distribute this document is hereby granted provided that this notice is retained
+	on all copies, and that the copyright holders and contributors are credited when the material is redistributed or used in
+	part or whole in derivative works.
+	Redistributions in binary form must reproduce this notice in the documentation and/or other materials
+	provided with the distribution.
+	
+	Disclaimer
+	This work is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+	including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose
+	are disclaimed. In no event shall the copyright owner or contributors be liable for any direct, indirect,
+	incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute
+	goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of
+	liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way
+	out of the use of this software, even if advised of the possibility of such damage.
+	================================================================================================== -->
+<!-- S-100 Portrayal catalog schema
+      Build 20191115 Updated for changes approved at S-100WG4 (See S-100WG4-4.6, 4.7, and 4.8) (2019-11-15)
+	  Build 20220331 Updated for S-100 5.0.0
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:s100Symbol="http://www.iho.int/S100SymbolDefinition/5.0" version="5.0.0-20220331">
+	<xs:import namespace="http://www.iho.int/S100SymbolDefinition/5.0" schemaLocation="S100SymbolDefinition.xsd"/>
+	<!-- Supported type for context parameters -->
+	<xs:simpleType name="ParameterType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Boolean"/>
+			<xs:enumeration value="Integer"/>
+			<xs:enumeration value="Double"/>
+			<xs:enumeration value="String"/>
+			<xs:enumeration value="Date"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- The type of an external file -->
+	<xs:simpleType name="FileType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Font"/>
+			<xs:enumeration value="AreaFill"/>
+			<xs:enumeration value="LineStyle"/>
+			<xs:enumeration value="Symbol"/>
+			<xs:enumeration value="ColorProfile"/>
+			<xs:enumeration value="Pixmap"/>
+			<xs:enumeration value="Rule"/>
+			<xs:enumeration value="StyleSheet"/>
+			<xs:enumeration value="AlertCatalog"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- The format of an external file -->
+	<xs:simpleType name="FileFormat">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="XML"/>
+			<xs:enumeration value="SVG"/>
+			<xs:enumeration value="XSLT"/>
+			<xs:enumeration value="TTF"/>
+			<xs:enumeration value="LUA"/>
+			<xs:enumeration value="CSS"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- The type of an template -->
+	<xs:simpleType name="RuleType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TopLevelTemplate"/>
+			<xs:enumeration value="SubTemplate"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Class for descriptive information about a catalogue item -->
+	<xs:complexType name="Description">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="description" type="xs:string"/>
+			<xs:element name="language" type="xs:language"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Abstract base class for catalogue items -->
+	<xs:complexType name="CatalogItem" abstract="true">
+		<xs:sequence>
+			<xs:element name="description" type="Description" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="s100Symbol:IdString" use="required"/>
+	</xs:complexType>
+	<!-- catalogue item for an external file -->
+	<xs:complexType name="ExternalFile">
+		<xs:complexContent>
+			<xs:extension base="CatalogItem">
+				<xs:sequence>
+					<xs:element name="fileName" type="xs:anyURI"/>
+					<xs:element name="fileType" type="FileType"/>
+					<xs:element name="fileFormat" type="FileFormat"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- catalogue item for an XSLT rule file -->
+	<xs:complexType name="RuleFile">
+		<xs:complexContent>
+			<xs:extension base="ExternalFile">
+				<xs:sequence>
+					<xs:element name="ruleType" type="RuleType"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class for a viewing group -->
+	<xs:complexType name="ViewingGroup">
+		<xs:complexContent>
+			<xs:extension base="CatalogItem"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class for a viewing group layer (an aggregation of viewing groups) -->
+	<xs:complexType name="ViewingGroupLayer">
+		<xs:complexContent>
+			<xs:extension base="CatalogItem">
+				<xs:sequence>
+					<xs:element name="viewingGroup" type="s100Symbol:IdString" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class for a display mode (an aggregation of  viewing group layers) -->
+	<xs:complexType name="DisplayMode">
+		<xs:complexContent>
+			<xs:extension base="CatalogItem">
+				<xs:sequence>
+					<xs:element name="viewingGroupLayer" type="s100Symbol:IdString" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Class for a display plane -->
+	<xs:complexType name="DisplayPlane">
+		<xs:complexContent>
+			<xs:extension base="CatalogItem">
+				<xs:attribute name="order" type="xs:integer" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-- Type for labels -->
+	<xs:complexType name="TextType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="language" type="xs:string" default="eng"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<!-- Type for representations of enumerated values -->
+	<xs:complexType name="EnumerationType">
+		<xs:sequence>
+			<xs:element name="label" type="TextType" maxOccurs="unbounded" minOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="value" type="xs:anySimpleType" use="required"/>
+		<xs:attribute name="icon" type="s100Symbol:IdString"/>
+	</xs:complexType>
+
+	<!-- Type for constraints on control parameters -->
+	<xs:complexType name="ConstraintType">
+		<xs:sequence>
+			<xs:element name="enumeration" type="EnumerationType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Class for a validation error -->
+	<xs:complexType name="ValidationErrorType">
+		<xs:sequence>
+			<xs:element name="text" type="TextType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="icon" type="s100Symbol:IdString"/>
+	</xs:complexType>
+
+	<!-- Class for a validation rule -->
+	<xs:complexType name="ValidationType">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="xpath" type="xs:string"/>
+				<xs:element name="regex" type="xs:string"/>
+			</xs:choice>
+			<xs:element name="errorMessage" type="ValidationErrorType"/>
+		</xs:sequence>
+		<xs:attribute name="enable" type="xs:string"/>
+	</xs:complexType>
+
+	<!-- Class for a context parameter -->
+	<xs:complexType name="ContextParameter">
+		<xs:complexContent>
+			<xs:extension base="CatalogItem">
+				<xs:sequence>
+					<xs:element name="type" type="ParameterType"/>
+					<xs:element name="default" type="xs:anyType"/>
+					<xs:element name="constrain" type="ConstraintType" minOccurs="0"/>
+					<xs:element name="validate" type="ValidationType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="enable" type="xs:string"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Pixmaps">
+		<xs:sequence>
+			<xs:element name="pixmap" type="ExternalFile" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ColorProfiles">
+		<xs:sequence>
+			<xs:element name="colorProfile" type="ExternalFile" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Symbols">
+		<xs:sequence>
+			<xs:element name="symbol" type="ExternalFile" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StyleSheets">
+		<xs:sequence>
+			<xs:element name="styleSheet" type="ExternalFile" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LineStyles">
+		<xs:sequence>
+			<xs:element name="lineStyle" type="ExternalFile" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AreaFills">
+		<xs:sequence>
+			<xs:element name="areaFill" type="ExternalFile" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Fonts">
+		<xs:sequence>
+			<xs:element name="font" type="ExternalFile" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ViewingGroups">
+		<xs:sequence>
+			<xs:element name="viewingGroup" type="ViewingGroup" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ViewingGroupLayers">
+		<xs:sequence>
+			<xs:element name="viewingGroupLayer" type="ViewingGroupLayer" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DisplayModes">
+		<xs:sequence>
+			<xs:element name="displayMode" type="DisplayMode" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DisplayPlanes">
+		<xs:sequence>
+			<xs:element name="displayPlane" type="DisplayPlane" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Context">
+		<xs:sequence>
+			<xs:element name="parameter" type="ContextParameter" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Begin TSM8: Portrayal Input Constraint Types -->
+	
+<!--	<!-\- An input XML hint for attributes of a feature type -\->
+	<xs:complexType name="AttributeHints">
+		<!-\- The code of a simple or complex attribute bound to a feature type. -\->
+		<xs:attribute name="code" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<!-\- An input XML hint for spatials -\->
+	<xs:complexType name="SpatialHints">
+		<!-\- If present, hint is for a specific spatial type. Otherwise applies to all spatial objects -\->
+		<xs:attribute name="primitive" type="s100BaseModel:GeometricPrimitive"/>
+		<!-\- Whether references to information objects must be provided (e.g. spatial quality) -\->
+		<xs:attribute name="informationAssociations" type="xs:boolean"/>
+		<!-\- Whether the coordinates must be provided. If coordinates are shared by multiple
+		     spatial objects then coordinates must be provided if any reference requires inclusion. -\->
+		<xs:attribute name="includeCoordinates" type="xs:boolean"/>
+	</xs:complexType>
+
+	<!-\- Adds defaults to SpatialHints type -\->
+	<xs:complexType name="GlobalSpatialHints">
+		<xs:complexContent>
+			<xs:restriction base="SpatialHints">
+				<xs:attribute name="primitive" type="s100BaseModel:GeometricPrimitive"/>
+				<xs:attribute name="informationAssociations" type="xs:boolean" default="true"/>
+				<xs:attribute name="includeCoordinates" type="xs:boolean" default="false"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<!-\- Base class for global and override input XML hints for features -\->
+	<xs:complexType name="FeatureHints" abstract="true">
+		<xs:sequence>
+			<!-\- A separate hint may be provided for each type of geometric primitive -\->
+			<xs:element name="spatialHint" type="SpatialHints" minOccurs="0" maxOccurs="5"/>
+		</xs:sequence>
+		<!-\- Whether references to associated spatial objects must be provided -\->
+		<xs:attribute name="spatialRelations" type="xs:boolean"/>
+		<!-\- Whether references to associated information objects must be provided -\->
+		<xs:attribute name="informationAssociations" type="xs:boolean"/>
+		<!-\- Whether the references to associated feature objects must be provided -\->
+		<xs:attribute name="featureAssociations" type="xs:boolean"/>
+	</xs:complexType>
+	
+	<!-\- Default values for feature hints -\->
+	<xs:complexType name="GlobalFeatureHints" abstract="true">
+		<xs:complexContent>
+			<xs:restriction base="FeatureHints">
+				<xs:sequence>
+					<!-\- Need at least one spatialHint to set default values -\->
+					<xs:element name="spatialHint" type="GlobalSpatialHints" minOccurs="1" maxOccurs="5"/>
+				</xs:sequence>
+				<xs:attribute name="spatialRelations" type="xs:boolean" default="true"/>
+				<xs:attribute name="informationAssociations" type="xs:boolean" default="true"/>
+				<xs:attribute name="featureAssociations" type="xs:boolean" default="true"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<!-\- An input XML hint for a specific feature type -\->
+	<xs:complexType name="FeatureTypeHints">
+		<xs:complexContent>
+			<xs:extension base="FeatureHints">
+				<xs:sequence>
+					<!-\- Hints for attributes of the feature type -\->
+					<xs:element name="attributeType" type="AttributeHints" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				
+				<!-\- A feature type code from the feature catalogue -\->
+				<xs:attribute name="code" type="xs:string" use="required"/>
+				<xs:attribute name="filterAttributes" type="xs:boolean" default="true"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<!-\- Hints for optimizing input XML generation. Indicates which elements of the input XML are
+		 processed by the portrayal catalogue rules. -\->
+	<xs:complexType name="InputXmlHints">
+		<xs:complexContent>
+			<xs:extension base="GlobalFeatureHints">
+				<xs:sequence>
+					<!-\- A list of feature types to include / exclude from the input XML -\->
+					<xs:element name="featureType" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					<!-\-
+						Hints for specific feature types. Used to override global settings for a specific feature type. Attribute values are inherited from the global settings, and should only be overriden if a value is provided.
+					-\->
+					<xs:element name="hint" type="FeatureTypeHints" minOccurs="0" maxOccurs="unbounded"/>
+					
+					<!-\-
+						Associates this InputXmlHints with a set of TopLevelTemplates. The InputXmlHints
+						are valid only when one of the referenced TopLevelTemplates is active.
+						
+						If occurance of topLevelTemplateId is zero then this InputXmlHints applies when no other InputXmlHints apply (i.e. when the active TopLevelTemplate is not referenced by any other InputXmlHints)
+						
+						If the active TopLevelTemplate has no associated InputXmlHints then no portrayal
+						input constraints should be applied. This occurs when:
+							- There are no InputXMLHints in the portrayal catalogue
+							- All provided InputXMLHints are specifically associated with other
+							  TopLevelTemplates
+					-\->
+					<xs:element name="topLevelTemplateId" type="s100Symbol:IdString" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				
+				<!-\-
+					When true, specified featureType elements may be excluded from the input XML,
+					all others must be included.
+					
+					When false, specified featureType elements must be included in the input XML,
+					all others may be excluded.
+				-\->
+				<xs:attribute name="filterFeatures" type="xs:boolean" default="true"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+-->
+	<!-- End TSM8: Portrayal Input Constraint Types -->
+	<xs:complexType name="Rules">
+		<xs:sequence>
+			<xs:element name="ruleFile" type="RuleFile" minOccurs="1" maxOccurs="unbounded"/>
+
+<!--
+			<!-\- TSM8: Portrayal Input Constraints -\->
+			<xs:element name="inputHints" type="InputXmlHints" minOccurs="0" maxOccurs="unbounded"/>
+-->
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PortrayalCatalog">
+		<xs:sequence>
+			<xs:element name="alertCatalog" type="ExternalFile" minOccurs="0"/>
+			<xs:element name="pixmaps" type="Pixmaps">
+				<xs:key name="pixmapKey">
+					<xs:selector xpath="pixmap"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="colorProfiles" type="ColorProfiles">
+				<xs:key name="colorProfileKey">
+					<xs:selector xpath="colorProfile"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="symbols" type="Symbols">
+				<xs:key name="symbolKey">
+					<xs:selector xpath="symbol"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="styleSheets" type="StyleSheets">
+				<xs:key name="styleSheetKey">
+					<xs:selector xpath="styleSheet"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="lineStyles" type="LineStyles">
+				<xs:key name="lineStyleKey">
+					<xs:selector xpath="lineStyle"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="areaFills" type="AreaFills">
+				<xs:key name="areaFillKey">
+					<xs:selector xpath="areaFill"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="fonts" type="Fonts">
+				<xs:key name="fontKey">
+					<xs:selector xpath="font"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="viewingGroups" type="ViewingGroups">
+				<xs:key name="viewingGroupKey">
+					<xs:selector xpath="viewingGroup"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="foundationMode">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="viewingGroup" type="s100Symbol:IdString" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="viewingGroupLayers" type="ViewingGroupLayers">
+				<xs:key name="viewingGroupLayerKey">
+					<xs:selector xpath="viewingGroupLayer"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="displayModes" type="DisplayModes">
+				<xs:key name="displayModeKey">
+					<xs:selector xpath="displayMode"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="displayPlanes" type="DisplayPlanes">
+				<xs:key name="displayPlaneKey">
+					<xs:selector xpath="displayPlane"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="context" type="Context">
+				<xs:key name="contextKey">
+					<xs:selector xpath="parameter"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="rules" type="Rules">
+				<xs:key name="ruleKey">
+					<xs:selector xpath="ruleFile"/>
+					<xs:field xpath="@id"/>
+				</xs:key>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="productId" type="xs:string" use="required"/>
+		<xs:attribute name="version" type="xs:string" use="required"/>
+	</xs:complexType>
+	<!-- THE ROOT ELEMENT -->
+	<xs:element name="portrayalCatalog" type="PortrayalCatalog">
+		<!-- KEYREF FOR VIEWING GROUPS -->
+		<xs:keyref name="viewingGroupRef" refer="viewingGroupKey">
+			<xs:selector xpath="viewingGroupLayers/viewingGroupLayer/viewingGroup|foundationMode/viewingGroup"/>
+			<xs:field xpath="."/>
+		</xs:keyref>
+		<!-- KEYREF FOR VIEWING GROUP LAYERS -->
+		<xs:keyref name="viewingGroupLayerRef" refer="viewingGroupLayerKey">
+			<xs:selector xpath="displayModes/displayMode/viewingGroupLayer"/>
+			<xs:field xpath="."/>
+		</xs:keyref>
+	</xs:element>
+</xs:schema>
