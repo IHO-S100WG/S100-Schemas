@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © Copyright 2011-2018, 2019, 2022 International Hydrographic Organisation
+License
+Certain parts of this document may refer to or be based on the standards, documents, schemas,
+or other material of the International Organization for Standardization (ISO), Open Geospatial
+Consortium (OGC), International Hydrographic Organization / Organisation Hydrographique
+Internationale (IHO/OHI).
+The ISO material can be obtained from any ISO member and from the Web site of the ISO Central
+Secretariat at www.iso.org.
+The OGC material can be obtained from the OGC Web site at www.opengeospatial.org.
+The IHO material can be obtained from the IHO Web site at www.iho.int or from the International
+Hydrographic Organization Secretariat.
+
+Permission to copy and distribute this document is hereby granted provided that this notice is
+retained on all copies, and that the IHO is credited when the material is redistributed
+or used in part or whole in derivative works.
+Redistributions in binary form must reproduce this notice in the documentation and/or other
+materials provided with the distribution.
+
+Disclaimer
+This work is provided by the copyright holders and contributors "as is" and any express or implied
+warranties, including, but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose are disclaimed. In no event shall the copyright owner or contributors be
+liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including,
+but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or
+business interruption) however caused and on any theory of liability, whether in contract, strict
+liability, or tort (including negligence or otherwise) arising in any way out of the use of this
+software, even if advised of the possibility of such damage.
+-->
+<!-- 
+    Version 5.0.0 Build 20220331: Updated intermediate version 4.1.0-20191115 for changes approved at S-100WG4 (See S-100WG4-4.6, 4.7, and 4.8)
+        The 2019 update added transparency and css to PaletteItem and Palette compared to the Edition 4.0.0 package.
+        The version number has now been updated to synchronize with a formal S-100 Edition 5.0.0.
+        Previous versions have not specified a namespace for unknown reasons and this practice continues in this version for backward compatibility.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="5.0.0-20220331">
+    <xs:simpleType name="Token">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="[a-zA-Z][0-9a-zA-Z_]*"/>
+        </xs:restriction>       
+    </xs:simpleType>
+    
+    <xs:simpleType name="ColorInteger">
+        <xs:restriction base="xs:nonNegativeInteger">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="NormalDouble">
+        <xs:restriction base="xs:double">
+            <xs:minInclusive value="0.0"/>
+            <xs:maxInclusive value="1.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="CIExyL">
+        <xs:sequence>
+            <xs:element name="x" type="NormalDouble"/>
+            <xs:element name="y" type="NormalDouble"/>
+            <xs:element name="L" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CIEXYZ">
+        <xs:sequence>
+            <xs:element name="X" type="xs:double"/>
+            <xs:element name="Y" type="xs:double"/>
+            <xs:element name="Z" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="SRGB">
+        <xs:sequence>
+            <xs:element name="red" type="ColorInteger"/>
+            <xs:element name="green" type="ColorInteger"/>
+            <xs:element name="blue" type="ColorInteger"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CIE">
+        <xs:choice>
+            <xs:element name="xyL" type="CIExyL"/>
+            <xs:element name="XYZ" type="CIEXYZ"/>
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:complexType name="ColorName">
+        <xs:sequence>
+            <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string"/>          
+        <xs:attribute name="token" type="Token" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="Colors">
+        <xs:sequence>
+            <xs:element name="color" type="ColorName" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="PaletteItem">
+        <xs:sequence>
+            <xs:element name="cie" type="CIE"/>
+            <xs:element name="srgb" type="SRGB"/>
+        </xs:sequence>
+        <xs:attribute name="token" type="Token" use="required"/>
+		<xs:attribute name="transparency" type="NormalDouble" default="0.0"/>
+    </xs:complexType>
+    
+    <xs:complexType name="Palette">
+        <xs:sequence>
+            <xs:element name="item" type="PaletteItem" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="css" type="xs:string" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="ColorProfile">
+        <xs:sequence>
+            <xs:element name="colors" type="Colors">
+                <xs:key name="colorKey">
+                    <xs:selector xpath="color"/>
+                    <xs:field xpath="@token"/>
+                </xs:key>
+            </xs:element>
+            <xs:element name="palette" type="Palette" minOccurs="1" maxOccurs="unbounded">
+                <xs:unique name="tokenUnique">
+                    <xs:selector xpath="item"/>
+                    <xs:field xpath="@token"/>
+                </xs:unique>               
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="colorProfile" type="ColorProfile">
+        <xs:keyref refer="colorKey" name="colorRef">
+            <xs:selector xpath="palette/item"/>
+            <xs:field xpath="@token"/>
+        </xs:keyref>      
+    </xs:element>
+
+</xs:schema>

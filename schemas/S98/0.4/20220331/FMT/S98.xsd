@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iho.int/s98/1.0.0"
+	xmlns:S100IC="http://www.iho.int/S100/IC/5.0"
+	xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
+	xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+	xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
+	version="0.4-20220331">
+<!-- ============================================================================================= -->
+<!-- XML Schema for S-98 interoperability catalogues. 								   -->
+<!-- ============================================================================================= -->
+	
+<!--
+© Copyright 2020 IHO
+Prepared under contract for NOAA (Original)
+
+License (Draft)
+Certain parts of this document refer to or are based on the standards, documents, schemas, or other material
+of the International Organization for Standardization (ISO), Open Geospatial Consortium (OGC), International
+Hydrographic Organization / Organisation Hydrographique Internationale (IHO/OHI).
+The ISO material can be obtained from any ISO member and from the Web site of the ISO Central Secretariat
+at www.iso.org.
+The OGC material can be obtained from the OGC Web site at www.opengeospatial.org.
+The IHO material can be obtained from the IHO Web site at www.iho.int or from the International Hydrographic
+Bureau.
+
+Permission to copy and distribute this document is hereby granted provided that this notice is retained
+on all copies, and that IHO, NOAA & Jeppesen are credited when the material is redistributed or used in
+part or whole in derivative works.
+Redistributions in binary form must reproduce this notice in the documentation and/or other materials
+provided with the distribution.
+
+Disclaimer
+This work is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose
+are disclaimed. In no event shall the copyright owner or contributors be liable for any direct, indirect,
+incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute
+goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of
+liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of this software, even if advised of the possibility of such damage.
+
+Document history
+    Initial version 2020-01-31 Raphael Malyankar
+-->
+
+	<!-- Imports from local file -->
+	<xs:import namespace="http://www.iho.int/S100/IC/5.0" schemaLocation="https://schemas.s100dev.net/schemas/S100/5.0.0/S100IC/20220331/S100_IC.xsd"/>
+
+	<!-- Example of imports from ISO's site (note that some schemas e.g., mdt, mda, ... import other components -->
+<!--
+	<xs:import namespace="http://standards.iso.org/iso/19115/-3/cit/2.0" schemaLocation="https://standards.iso.org/iso/19115/-3/cit/2.0/cit.xsd"/>
+-->
+	<!-- Since there are no S-98 extensions to the S-100 interoperability schema, this file is merely a wrapper which
+		includes the S-100 interoperability catalogue schema and adds the S-98 schematron file. S-98 XML files should
+		include the S-98 Schematron file to apply the S-98-specific constraints to S-98 interoperability catalogues.
+	 -->
+</xs:schema>

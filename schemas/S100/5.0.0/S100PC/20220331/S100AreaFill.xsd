@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © Copyright 2011-2018, 2019, 2022 International Hydrographic Organisation
+License
+Certain parts of this document may refer to or be based on the standards, documents, schemas,
+or other material of the International Organization for Standardization (ISO), Open Geospatial
+Consortium (OGC), International Hydrographic Organization / Organisation Hydrographique
+Internationale (IHO/OHI).
+The ISO material can be obtained from any ISO member and from the Web site of the ISO Central
+Secretariat at www.iso.org.
+The OGC material can be obtained from the OGC Web site at www.opengeospatial.org.
+The IHO material can be obtained from the IHO Web site at www.iho.int or from the International
+Hydrographic Organization Secretariat.
+
+Permission to copy and distribute this document is hereby granted provided that this notice is
+retained on all copies, and that the IHO is credited when the material is redistributed
+or used in part or whole in derivative works.
+Redistributions in binary form must reproduce this notice in the documentation and/or other
+materials provided with the distribution.
+
+Disclaimer
+This work is provided by the copyright holders and contributors "as is" and any express or implied
+warranties, including, but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose are disclaimed. In no event shall the copyright owner or contributors be
+liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including,
+but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or
+business interruption) however caused and on any theory of liability, whether in contract, strict
+liability, or tort (including negligence or otherwise) arising in any way out of the use of this
+software, even if advised of the possibility of such damage.
+-->
+<!-- Version 5.0.0 Build 20220331 namespaces updated, version attribute added to schema root element
+        Previous versions have not specified a namespace for unknown reasons and this practice continues in this version for backward compatibility.
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:s100Symbol="http://www.iho.int/S100SymbolDefinition/5.0" version="5.0.0-20220331">
+    <xs:import namespace="http://www.iho.int/S100SymbolDefinition/5.0" schemaLocation="S100SymbolDefinition.xsd"/>
+    
+    <xs:element name="areaFillBase" type="s100Symbol:AreaFillBase"/>
+    <xs:element name="colorFill" type="s100Symbol:ColorFill" substitutionGroup="areaFillBase"/>
+    <xs:element name="pixmapFill" type="s100Symbol:PixmapFill" substitutionGroup="areaFillBase"/>
+    <xs:element name="symbolFill" type="s100Symbol:SymbolFill" substitutionGroup="areaFillBase"/>
+    <xs:element name="hatchFill" type="s100Symbol:HatchFill" substitutionGroup="areaFillBase"/>
+    
+</xs:schema>

@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.iho.int/S100/IC/5.0"
+	xmlns="http://www.iho.int/S100/IC/5.0"
+	xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
+	xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+	xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
+	version="5.0.0-20220331">
+<!-- ================================================================================ -->
+<!-- XML Schema for S-100 interoperabilty catalogue. 								  -->
+<!-- ================================================================================ -->
+
+<!--
+© Copyright 2016-2019, 2020, 2022
+Prepared under contract for NOAA (Original)
+
+License (Draft)
+Certain parts of this document refer to or are based on the standards, documents, schemas,
+or other material of the International Organization for Standardization (ISO), Open Geospatial
+Consortium (OGC), International Hydrographic Organization / Organisation Hydrographique
+Internationale (IHO/OHI).
+The ISO material can be obtained from any ISO member and from the Web site of the ISO Central
+Secretariat at www.iso.org.
+The OGC material can be obtained from the OGC Web site at www.opengeospatial.org.
+The IHO material can be obtained from the IHO Web site at www.iho.int or from the International
+Hydrographic Bureau.
+
+Permission to copy and distribute this document is hereby granted provided that this notice is
+retained on all copies, and that IHO, NOAA & C-Map are credited when the material is redistributed
+or used in part or whole in derivative works.
+Redistributions in binary form must reproduce this notice in the documentation and/or other
+materials provided with the distribution.
+
+Disclaimer
+This work is provided by the copyright holders and contributors "as is" and any express or implied
+warranties, including, but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose are disclaimed. In no event shall the copyright owner or contributors be
+liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including,
+but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or
+business interruption) however caused and on any theory of liability, whether in contract, strict
+liability, or tort (including negligence or otherwise) arising in any way out of the use of this
+software, even if advised of the possibility of such damage.
+
+Document history
+Version 0.4	2016-07-21	Raphael Malyankar (C-MAP) for NOAA / IIC Technologies
+Ver. 0.5 2017-03-15	Updated by Raphael Malyankar for NOAA / IIC Technologies with changes conforming
+					to recent revisions to the IC model for S100WG2
+Ver. 0.1-20170731	Raphael Malyankar for NOAA. Renumbered 0.1-20170731 conforming to IC specification document.
+	Added association from PDC to display plane; added substituteSymbolization attribute;
+	changed multiplicity of content of features and drawingInstructions containers in S100_IC_DisplayPlane to 0.*
+Ver. 0.2-20171212	Raphael Malyankar for NOAA. Replaced S-112 with S-104 (S-112 discontinued by HSSC9) and changed
+	type of display plane identifier to be consistent with other identifier attributes and display plane identifiers
+	in S-100 Part 9.
+Ver. 0.3-20180702	Raphael Malyankar. Updated namespaces to harmonize with ISO 19115-3. Added types for digital
+	signature reference and value as defined in the exchange catalogue
+Ver. 1.0.0-20190331	Raphael Malyankar. Added S-129 to the enumeration of product specifications; updated version number
+	to 1.0.0; removed arc and circle spatial primitives from the spatial primitives enumeration; updated schema import
+	locations to in comment to reference the distributions now available from the ISO standards.iso.org site.
+Ver. 1.0.0-20190422	Raphael Malyankar. schemaLocation of local files changed after reorganization of folder structure.
+Ver. 0.4-20200131 Raphael Malyankar. Version downgraded to 0.4 following TSM7 decision to split interoperability
+		between S-100 and S-98. Includes chema changes to conform to adjustments to the interoperability model in the
+		course of preparing the new drafts of S-100 Part 16(?) (Abstract Interoperability) and the new S-98 draft.
+Ver. 5.0.0-20220331	Raphael Malyankar. Namespace and version numbering updated to conform to S-100 5.0.0; ISO schema
+	location updated to use current ISO TC211 schemas site
+-->
+	<!-- update schemaLocation import locations as necessary before using validation -->
+	<!-- Note - this file may use local installations of the ISO 19115-3 files. Use XML catalogues or update the schemaLocation
+		values as necessary if you maintain a local copy or distribute a copy with your exchange sets or software.
+	-->
+<!--
+	<xs:import namespace="http://standards.iso.org/iso/19115/-3/cat/1.0" schemaLocation="../../../../standards.iso.org/19115/-3/cat/1.0/cat.xsd"/>
+	<xs:import namespace="http://standards.iso.org/iso/19115/-3/gco/1.0" schemaLocation="../../../../standards.iso.org/19115/-3/gco/1.0/gco.xsd"/>
+	<xs:import namespace="http://standards.iso.org/iso/19115/-3/lan/1.0" schemaLocation="../../../../standards.iso.org/19115/-3/lan/1.0/lan.xsd"/>
+-->	
+	<xs:import namespace="http://standards.iso.org/iso/19115/-3/cat/1.0" schemaLocation="https://schemas.isotc211.org/19115/-3/cat/1.0/cat.xsd"/>
+	<xs:import namespace="http://standards.iso.org/iso/19115/-3/gco/1.0" schemaLocation="https://schemas.isotc211.org/19115/-3/gco/1.0/gco.xsd"/>
+	<xs:import namespace="http://standards.iso.org/iso/19115/-3/lan/1.0" schemaLocation="https://schemas.isotc211.org/19115/-3/lan/1.0/lan.xsd"/>
+	
+
+	<!-- Extract from S100FC.xsd S-100 feature catalogue schema -->
+	<!-- enumeration of primitive types -->
+	<xs:simpleType name="S100_FC_SpatialPrimitiveType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="noGeometry"/>
+			<xs:enumeration value="point"/>
+			<xs:enumeration value="pointSet"/>
+			<xs:enumeration value="curve"/>
+			<xs:enumeration value="surface"/>
+			<xs:enumeration value="coverage"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<!-- Placeholder types -->
+	<xs:simpleType name="FeatureSelector">
+		<xs:annotation>
+			<xs:documentation>A template, logical expression, or match condition that, given a feature instance as parameter, can be evaluated to produce a TRUE/FALSE result</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="PCReferenceType">
+		<xs:annotation>
+			<xs:documentation>References to items defined elsewhere in the XML file that use portrayal catalogue IDs.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="PCIDStringType"></xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="PCIDStringType">
+		<xs:annotation><xs:documentation>S-100 Part 9 GraphicsBase: A string with at least 1 character starting with an alpha numerical character used as identifier within this catalogue</xs:documentation></xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:pattern value="[0-9a-zA-Z]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GenericIDType">
+		<xs:annotation><xs:documentation>Generic identifier. Provisionally any URI</xs:documentation></xs:annotation>
+		<xs:restriction base="xs:anyURI">
+			<xs:minLength value="1"/>
+			<xs:pattern value="\S+"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FeatureCodeType">
+		<xs:annotation><xs:documentation>Type for feature codes that identify feature types in feature catalogues</xs:documentation></xs:annotation>
+		<xs:restriction base="xs:anyURI">
+			<xs:minLength value="1"/>
+			<xs:pattern value="\S+"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Interoperability types -->
+
+	<xs:complexType name="S100_IC_Feature">
+		<xs:annotation>
+			<xs:documentation>Information that guides the relative layering and drawing order of feature types during portrayal.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identifier" type="GenericIDType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="featureCode" type="FeatureCodeType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="product" type="dataProduct" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="geometryType" type="S100_FC_SpatialPrimitiveType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="attributeCombination" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="drawingPriority" type="drawingPriorityType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="viewingGroup" type="viewingGroupType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_DrawingInstruction">
+		<xs:annotation>
+			<xs:documentation>Information that guides the relative layering and drawing order of drawing instruction during portrayal.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identifier" type="PCIDStringType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="featureCode" type="FeatureCodeType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="product" type="dataProduct" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="geometryType" type="S100_FC_SpatialPrimitiveType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="attributeCombination" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="drawingPriority" type="drawingPriorityType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="viewingGroup" type="viewingGroupType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="substituteSymbolization" type="xs:anyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation><xs:documentation>Substitute for the symbolization content of drawing instructions. This can be any element of the drawing instruction not defined in the abstract class DrawingInstruction defined in S-100 3.0.0 Part 9 clause 9-11.2, but defined in the relevant descendant of that class.</xs:documentation></xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_PredefinedCombination">
+		<xs:annotation>
+			<xs:documentation>Pre-defined combinations are identifiable pre-set collections of recommended and optional S-NNN data products which are expected to be loaded by the user under specific conditions or for specified tasks. Each pre-defined combination is basically a package of data products, display priorities, context parameters, user settings, portrayal catalogues, etc. An ECDIS or other system can allow the user to initiate the loading of multiple data products and activate multiple parameter settings as a single action, by selecting one of a list of pre-defined combinations, instead of loading and unloading individual data products. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Identifier of the predefined combination</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Name of combination</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Brief description of combination</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="useConditions" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Conditions for which the combination is designed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interoperabilityLevel" type="interoperabilityLevelType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The highest level of interoperability functionality encoded within an instance of this type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="includedProduct" type="dataProduct" minOccurs="2" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Products recommended to be active in this mode</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="displayPlaneRef" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation><xs:documentation>Reference to an S100_IC_DisplayPlane element in this interoperability catalogue</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="suppressedFeatureLayers" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="S100_IC_SuppressedFeatureLayer" type="S100_IC_SuppressedFeatureLayer" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="derivedFeatures" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="S100_IC_SuppressedFeatureInstance" type="S100_IC_SuppressedFeatureInstance" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="S100_IC_HybridFeature" type="S100_IC_HybridFeature" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_FeatureDerivation" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Derived features are created by consolidating features from 2 or more different products into one final view, so the changes can include geometry, attribution and/or portrayal (depending on the interoperability level).
+Individual primary and secondary inputs are suppressed from being rendered and only the resulting derived feature is added to the data stack.
+The resulting derived feature does not need to have any hybrid characteristics i.e. one restricted area replaced with another restricted area will use regular PC/FC of the primary product. However if the result feature needs to be supported by any custom FC or PC elements they must be defined under hybrid FC and hybrid PC accordingly. A rule for creating the feature must be described in the rules section.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identifier" type="GenericIDType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="primaryProduct" type="dataProduct" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="primaryFeatureCode" type="FeatureCodeType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="primarySelector" type="FeatureSelector" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="secondaryProduct" type="dataProduct" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="secondaryFeatureCode" type="FeatureCodeType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="secondarySelector" type="FeatureSelector" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="outputProduct" type="dataProduct" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The output product. Normally indicates the hypothetical "hybrid" product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outputFeatureCode" type="FeatureCodeType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="featureRef" type="GenericIDType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="S100_IC_InteroperabilityCatalogue" type="S100_IC_InteroperabilityCatalogue" substitutionGroup="cat:AbstractCT_Catalogue">
+		<xs:unique name="ELEMENTID">
+			<xs:annotation><xs:documentation>each id attribute or identifier element must be unique</xs:documentation></xs:annotation>
+			<xs:selector xpath=".//S100_IC_FeatureDerivation|.//S100_IC_HybridFeatureCreationRule|.//S100_IC_SuppressedFeatureLayer|.//S100_IC_DrawingInstruction|.//S100_IC_PredefinedCombination"/>
+			<xs:field xpath="@id|identifier"/>
+		</xs:unique>
+	</xs:element>
+
+	<xs:complexType name="S100_IC_InteroperabilityCatalogue">
+		<xs:annotation><xs:documentation>An interoperability catalogue contains operations and rules for the interoperation of a set of S-100-based data products.</xs:documentation></xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cat:AbstractCT_Catalogue_Type">
+				<xs:sequence>
+					<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="interoperabilityLevel" type="interoperabilityLevelType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="requirementType" type="requirementType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The type of authority or requestor responsible for the specifications, rules, or requirements based on which this catalogue was prepared.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="requirementDescription" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Description of the source of the requirements or specifications upon which this catalogue is based. This might be the name of the country, company, OEM, port, pilot, etc.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="productCovered" type="dataProduct" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:element name="displayPlanes">
+						<xs:annotation><xs:documentation>Container for DisplayPlane elements</xs:documentation></xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="S100_IC_DisplayPlane" type="S100_IC_DisplayPlane" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+						<xs:key name="DPID">
+							<xs:annotation><xs:documentation>each display plane must have a unique identifier</xs:documentation></xs:annotation>
+							<xs:selector xpath="S100_IC_DisplayPlane"/>
+							<xs:field xpath="identifier"/>
+						</xs:key>
+						<xs:key name="DPNM">
+							<xs:annotation><xs:documentation>each display plane must have a unique name</xs:documentation></xs:annotation>
+							<xs:selector xpath="S100_IC_DisplayPlane"/>
+							<xs:field xpath="name"/>
+						</xs:key>
+					</xs:element>
+					<xs:element name="predefinedProductCombinations" minOccurs="0">
+						<xs:annotation><xs:documentation>Container for PredefinedCombination elements</xs:documentation></xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="S100_IC_PredefinedCombination" type="S100_IC_PredefinedCombination" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+						<xs:key name="PDCID">
+							<xs:annotation><xs:documentation>Each PDC must have a unique identifier</xs:documentation></xs:annotation>
+							<xs:selector xpath="S100_IC_PredefinedCombination"/>
+							<xs:field xpath="identifier"/>
+						</xs:key>
+						<xs:key name="PDCNM">
+							<xs:annotation><xs:documentation>Each PDC must have a unique name</xs:documentation></xs:annotation>
+							<xs:selector xpath="S100_IC_PredefinedCombination"/>
+							<xs:field xpath="name"/>
+						</xs:key>
+					</xs:element>
+					<xs:element name="hybridizationRules" minOccurs="0">
+						<xs:annotation><xs:documentation>Container for hybridization rule elements</xs:documentation></xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="S100_IC_SimpleRule" type="S100_IC_SimpleRule" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element name="S100_IC_ThematicRule" type="S100_IC_ThematicRule" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element name="S100_IC_CompleteRule" type="S100_IC_CompleteRule" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+						<xs:key name="RULE_IDENTIFIER">
+							<xs:annotation><xs:documentation>Each rule must have a unique ruleIdentifier</xs:documentation></xs:annotation>
+							<xs:selector xpath="*"/>
+							<xs:field xpath="ruleIdentifier"/>
+						</xs:key>
+					</xs:element>
+					<xs:element name="hybridPC" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:annotation>
+								<xs:documentation>Reference to the hybrid portrayals catalogue</xs:documentation>
+							</xs:annotation>
+							<xs:sequence>
+								<xs:element name="S100_IC_HybridPC" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="hybridFC" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:annotation>
+								<xs:documentation>Reference to the hybrid features catalogue</xs:documentation>
+							</xs:annotation>
+							<xs:sequence>
+								<xs:element name="S100_IC_HybridFC" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="S100_DigitalSignatureValue" mixed="true">
+		<xs:sequence>
+			<xs:element name="signedPublicKey">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:base64Binary">
+							<xs:attribute name="id" type="xs:string" use="required"/>
+							<xs:attribute name="rootKey" type="xs:string" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="digitalSignature">
+				<xs:simpleType>
+					<xs:restriction base="xs:hexBinary">
+						<xs:maxLength value="100"><xs:annotation><xs:documentation>up to 100 octets</xs:documentation></xs:annotation></xs:maxLength>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="dataProduct">
+		<xs:annotation><xs:documentation>List of data products</xs:documentation></xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="gco:CodeListValue_Type"/>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:simpleType name="requirementType">
+		<xs:annotation><xs:documentation>The source of the catalogue or the person or party according to whose recommendations the catalogue was prepared.</xs:documentation></xs:annotation>
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="IHO">
+						<xs:annotation>
+							<xs:documentation>Original IHO interoperability catalogue</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="OEM">
+						<xs:annotation>
+							<xs:documentation>Prepared according to requirements specified by OEM or systems integrator</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="national">
+						<xs:annotation>
+							<xs:documentation>Prepared according to requirements specified by a national government, group of national governments (e.g., the European Union), or governmental agency such as a national shipping authority or the USCG.</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="local">
+						<xs:annotation>
+							<xs:documentation>Prepared according to requirements specified by a sub-national governmental authority such as a state, province, or county.</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="port">
+						<xs:annotation>
+							<xs:documentation>Prepared according to requirements specified by a harbormaster's office or port authority</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="company">
+						<xs:annotation>
+							<xs:documentation>Prepared according to requirements specified by the owner, charterer, or operator</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="pilot">
+						<xs:annotation>
+							<xs:documentation>Prepared according to requirements specified by a pilot</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="master">
+						<xs:annotation>
+							<xs:documentation>Prepared according to requirements specified by the vessel's master</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="other">
+						<xs:annotation>
+							<xs:documentation>Other source</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="other: [a-zA-Z0-9]+( [a-zA-Z0-9]+)*"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="interoperabilityLevelType">
+		<xs:annotation><xs:documentation>Data type for interoperability levels</xs:documentation></xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="drawingPriorityType">
+		<xs:annotation><xs:documentation>Data type for drawingPriority</xs:documentation></xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="viewingGroupType">
+		<xs:annotation><xs:documentation>Data type for viewingGroup</xs:documentation></xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="S100_IC_SuppressedFeatureLayer">
+		<xs:annotation>
+			<xs:documentation>Describes operations for suppressing all instances of a feature type in one product by features from another product.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identifier" type="GenericIDType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="featureCode" type="FeatureCodeType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="product" type="dataProduct" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="featureRef" type="GenericIDType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="drawingInstructionRef" type="GenericIDType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_HybridFeatureCreationRule" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Hybrid feature creation rule captures the entire data filtering logic (i.e. finding all features to be operated on) as well as the entire processing logic.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ruleIdentifier" type="GenericIDType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Rule identifier</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interoperabilityLevel" type="interoperabilityLevelType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_SimpleRule">
+		<xs:annotation><xs:documentation>Rule describing how a set of feature instances is combined to create a hybrid feature type. Simple rules may operate only on thematic attributes. Simple rules treat thematic attributes uniformly during hybridization and therefore do not mention specific attributes. Location/extent spatial attributes of all input features must be spatially equal</xs:documentation></xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100_IC_HybridFeatureCreationRule">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_HybridFeature">
+		<xs:annotation><xs:documentation>Feature created by combining feature types from two or more products for the purposes of an interoperable display</xs:documentation></xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100_IC_FeatureDerivation">
+				<xs:sequence>
+					<xs:element name="creationRule" type="GenericIDType" minOccurs="1" maxOccurs="1">
+						<xs:annotation><xs:documentation>The creationRule element in HybridFeature can reference a ThematicRule or ComplexRule</xs:documentation></xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_DisplayPlane">
+		<xs:annotation>
+			<xs:documentation>Each display plane identifies all features and their draw orders  within the plane. Display priority defines the order in which display planes are rendered.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identifier" type="PCIDStringType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="order" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="interoperabilityLevel" type="interoperabilityLevelType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="features">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="S100_IC_Feature" type="S100_IC_Feature" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="drawingInstructions">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="S100_IC_DrawingInstruction" type="S100_IC_DrawingInstruction" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_SuppressedFeatureInstance">
+		<xs:annotation><xs:documentation>Operations for replacement of feature instances in one product by instances in another product. The “secondary” product replaces the “primary”.</xs:documentation></xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100_IC_FeatureDerivation">
+				<xs:sequence>
+					<xs:element name="creationRule" type="GenericIDType" minOccurs="0" maxOccurs="1">
+						<xs:annotation><xs:documentation>The creationRule element in SuppressedfeatureInstance can reference only a SimpleRule</xs:documentation></xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_ThematicRule">
+		<xs:annotation><xs:documentation>Rule describing how a set of feature instances is combined to create a hybrid feature type.Thematic rules may operate on only thematic attributes. The input features are required to have spatially equal geometry within a tolerance set by the system.</xs:documentation></xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100_IC_HybridFeatureCreationRule">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="S100_IC_CompleteRule">
+		<xs:annotation><xs:documentation>Rule describing how a set of feature instances is combined to create a hybrid feature type.Complete rules may operate on both thematic and spatial attributes.</xs:documentation></xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100_IC_HybridFeatureCreationRule">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>	
+
+</xs:schema>

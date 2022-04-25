@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.iho.int/S100/la/5.0"
+  xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+  xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
+  targetNamespace="http://www.iho.int/S100/la/5.0"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  version="5.0.0-20220331">
+
+  <!-- =========================================================================== -->
+  <!-- XML Schema for S-100 Edition 5.0.0 translation packages. 								   -->
+  <!-- =========================================================================== -->
+  <!--
+© Copyright 2022 IHO
+Prepared under contract for Canadian Coast Guard and the IHO
+
+License (Draft)
+Certain parts of this document refer to or are based on the standards, documents, schemas, or other material
+of the International Organization for Standardization (ISO), International
+Hydrographic Organization / Organisation Hydrographique Internationale (IHO/OHI).
+The ISO material can be obtained from any ISO member and from the Web site of the ISO Central Secretariat
+at www.iso.org.
+The IHO material can be obtained from the IHO Web site at www.iho.int or from the International Hydrographic
+Bureau.
+
+Permission to copy and distribute this document is hereby granted provided that this notice is retained
+on all copies, and that IHO, Canadian Coast Guard & SevenCs GmbH are credited when the material is redistributed or used in
+part or whole in derivative works.
+Redistributions in binary form must reproduce this notice in the documentation and/or other materials
+provided with the distribution.
+
+Disclaimer
+This work is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose
+are disclaimed. In no event shall the copyright owner or contributors be liable for any direct, indirect,
+incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute
+goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of
+liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of this software, even if advised of the possibility of such damage.
+
+Document history
+Version 1.0.0	2022-02-17	Holger Bothien (SevenCs) for Canadian Coast Guard / IIC Technologies / IHO
+    Build 20220331 (RMM) Added gco and cit imports and updated schema namespace and version to 5.0
+      updated schemaLocation to reference standard ISO locations
+	-->
+
+  <xs:import namespace="http://standards.iso.org/iso/19115/-3/gco/1.0" schemaLocation="https://schemas.isotc211.org/19115/-3/gco/1.0/gco.xsd"/>
+  <xs:import namespace="http://standards.iso.org/iso/19115/-3/cit/2.0" schemaLocation="https://schemas.isotc211.org/19115/-3/cit/2.0/cit.xsd"/>
+
+  <xs:simpleType name="Status">
+    <xs:annotation>
+      <xs:documentation>The status of the translation item. The purpose is manly to support the functionality of an translation tool.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="New">
+        <xs:annotation>
+          <xs:documentation>The item is new, there is no translation available yet.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Modified">
+        <xs:annotation>
+          <xs:documentation>The original text has been changed in the source.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Deleted">
+        <xs:annotation>
+          <xs:documentation>The text defined by path is not longer available in the source document.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Translated">
+        <xs:annotation>
+          <xs:documentation>The item has a valid translation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="LanguageType">
+    <xs:sequence>
+      <xs:element name="languageCode" type="gco:CodeListValue_Type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TranslationItemType">
+    <xs:annotation>
+      <xs:documentation>One item to be translated. This will be a uniquely identifiable element or attribute in a source (XML) file</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="path" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The XPath that defines the 'source' text.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="original" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The original text as exists in the source document.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="Status" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The status of the translation item</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="translation" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The translated text.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResourceIdentification">
+    <xs:annotation>
+      <xs:documentation>Information to identify a specific version of an (XML) file.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="path" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The XPath to the element or attribute that allows the unique identification of the source file.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="value" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The value of the element or attribute that describes the identification of the source file. e.g. the version or issue date</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SourceHeaderType">
+    <xs:annotation>
+      <xs:documentation>Information to identyfing the source file. It supports mechanism to distinguish different versions of a source file.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="resourceIdentifier" type="xs:anyURI"/>
+      <xs:element name="identification" type="ResourceIdentification" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Identification by one or more elements or attributes in the source file.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SourceFileType">
+    <xs:sequence>
+      <xs:element name="header" type="SourceHeaderType"/>
+      <xs:element name="translationItem" type="TranslationItemType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The list of translation items.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TranslationPackageType">
+    <xs:sequence>
+      <xs:element name="language" type="LanguageType">
+        <xs:annotation>
+          <xs:documentation>The language that will be supported by this translation file.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="issueDate" type="xs:date"/>
+      <xs:element name="issueTime" type="xs:time" minOccurs="0"/>
+      <xs:element name="responsibleParty" type="cit:CI_Responsibility_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="sourceFile" type="SourceFileType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The list of source files for that this translation file provides translations.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="translationPackage" type="TranslationPackageType">
+    <xs:annotation>
+      <xs:documentation>The root element of a translation file.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+
+</xs:schema>

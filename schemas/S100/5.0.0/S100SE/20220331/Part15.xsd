@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ============================================================================================= -->
+<!-- XML Schema for S-100 Edition 5.0.0 exchange set catalogues. 								   -->
+<!-- ============================================================================================= -->
+
+<!--
+© Copyright 2022 (IHO)
+
+License
+Certain parts of this document refer to or are based on the standards, documents, schemas, or other material
+of the International Organization for Standardization (ISO), Open Geospatial Consortium (OGC), International
+Hydrographic Organization / Organisation Hydrographique Internationale (IHO/OHI).
+The ISO material can be obtained from any ISO member and from the Web site of the ISO Central Secretariat
+at www.iso.org.
+The OGC material can be obtained from the OGC Web site at www.opengeospatial.org.
+The IHO material can be obtained from the IHO Web site at www.iho.int or from the International Hydrographic
+Bureau.
+
+Permission to copy and distribute this document is hereby granted provided that this notice is retained
+on all copies, and that IHO, NOAA & Jeppesen are credited when the material is redistributed or used in
+part or whole in derivative works.
+Redistributions in binary form must reproduce this notice in the documentation and/or other materials
+provided with the distribution.
+
+Disclaimer
+This work is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose
+are disclaimed. In no event shall the copyright owner or contributors be liable for any direct, indirect,
+incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute
+goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of
+liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of this software, even if advised of the possibility of such damage.
+
+Document history
+Version 5.0.0 Build 20211116 (SevenCs) Prepared for S-100 Edition 5.0.0. No prior editions.
+  Build 20220331 (RMM) Updated with copyright and license notice and documentation from Part 15;
+      added property type for digital signature; additional values for S100_SE_ DigitalSignatureReference
+      as listed in 2022-03-23 draft of Part 15
+	-->
+
+<!-- 
+	-->
+<xs:schema targetNamespace="http://www.iho.int/s100/se/5.0" elementFormDefault="qualified"
+  xmlns="http://www.iho.int/s100/se/5.0"
+  xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  version="5.0.0-20220331">
+
+  <xs:import namespace="http://standards.iso.org/iso/19115/-3/gco/1.0" schemaLocation="../../../../standards.iso.org/19115/-3/gco/1.0/gco.xsd"/>
+  
+  <xs:complexType name="PermitType">
+    <xs:annotation><xs:documentation>The root element of the permit file.</xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:element name="header" type="PermitHeaderType"><xs:annotation><xs:documentation>File creation date, the name of the Data Server and the format version</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="products" type="ProductsPermitType"><xs:annotation><xs:documentation>Permits from the Data Server for the specified product</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PermitHeaderType">
+    <xs:annotation><xs:documentation>File creation date, the name of the Data Server and the format version</xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:element name="issueDate" type="xs:date"><xs:annotation><xs:documentation>Date and time</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="dataServerName" type="xs:string"><xs:annotation><xs:documentation>Name of Data Server who has generated the permit file. The Data Server name should be consistent and use the same organizational contact as defined in S100_ExchangeCatalogue – contact</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="dataServerIdentifier" type="xs:string"><xs:annotation><xs:documentation>Short identifier of data server</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="version" type="xs:string"><xs:annotation><xs:documentation>Version number of S-100. It will be compatible with the IHO version numbering scheme X.Y.Z.</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="userpermit" type="xs:string"><xs:annotation><xs:documentation>The user permit that the permit is intended for. This allows the client system or implementer to validate the destination. The end-user system must be capable of checking if the permit is for the designated system on a multi system bridge.</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DatasetPermitType">
+    <xs:annotation><xs:documentation>TBD</xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:element name="filename" type="xs:string"><xs:annotation><xs:documentation>The file name as defined in S100_DatasetDiscoveryMetadata – fileName. It enables Data Client systems to link the correct encryption key to the corresponding encrypted file. The pathName to the file is defined in the Exchange Set Metadata</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="editionNumber" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The edition number of the product file as defined in S100_DatasetDiscoveryMetadata  - editionNumber. For products without an edition number the permit will apply to all issued datasets.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="issueDate" type="xs:date"><xs:annotation><xs:documentation>If the product does not have an edition number then the issue date may be used as an alternative identifier</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="expiry" type="xs:date" minOccurs="0"><xs:annotation><xs:documentation>This is the date when the Data Clients licence expires. Systems must prevent any new editions or updates issued after this date from being installed</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="encryptedKey" type="xs:string"><xs:annotation><xs:documentation>EK contains the decryption key for the specified edition of the product file</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductsPermitType">
+    <xs:annotation><xs:documentation>Permits from the Data Server for the specified product</xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="product">
+        <xs:annotation><xs:documentation>TBD</xs:documentation></xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="datasetPermit" type="DatasetPermitType"><xs:annotation><xs:documentation>TBD</xs:documentation></xs:annotation></xs:element>
+          </xs:sequence>
+          <xs:attribute name="id"><xs:annotation><xs:documentation>TBD</xs:documentation></xs:annotation></xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="S100_SE_DigitalSignature_PropertyType">
+    <xs:annotation>
+      <xs:documentation>Property type for S100_SE_DigitalSignature</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="S100_SE_DigitalSignature">
+        <xs:attribute ref="gco:nilReason"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="S100_SE_DigitalSignatureReference_PropertyType">
+    <xs:annotation>
+      <xs:documentation>Property type for S100_SE_DigitalSignatureReference</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="S100_SE_DigitalSignatureReference">
+        <xs:attribute ref="gco:nilReason"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:element name="Permit" type="PermitType">
+    <xs:annotation>
+      <xs:documentation>The root element of the permit file.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+
+  <!-- CERTIFICATE TYPES -->
+  <!-- A SINGLE CERTIFICATE -->
+  <xs:complexType name="S100_SE_CertificateType">
+    <xs:annotation>
+      <xs:documentation>for embedding in files that contains signatures e.g exchange set catalogues or standalone signature file.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:base64Binary">
+        <xs:attribute name="id" type="xs:string" use="required"><xs:annotation><xs:documentation>Each XML element containing a certificate will have a unique identifier attribute “id”.</xs:documentation></xs:annotation></xs:attribute>
+        <xs:attribute name="issuer" type="xs:string" use="required"><xs:annotation><xs:documentation>Each XML certificate definition will also include an attribute, “issuer” defining the id of the issuer, either the SA (identified by the schemeAdministrator id) or a domain coordinator (whose certificate will also be included in the Exchange Set).</xs:documentation></xs:annotation></xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- A CONTAINER FOR CERTIFICATES -->
+  <xs:complexType name="S100_SE_CertificateContainerType">
+    <xs:annotation><xs:documentation>A set of signed public key certificates</xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:element name="schemeAdministrator">
+        <xs:complexType>
+          <xs:attribute name="id" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation>The scheme administrator identity</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="certificate" type="S100_SE_CertificateType" maxOccurs="unbounded"><xs:annotation><xs:documentation>A signed public key certificate</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- SIGNATURE TYPES -->
+  <!-- TYPE FOR A SINGLE SIGNATURE -->
+  <xs:complexType name="S100_SE_DigitalSignature">
+    <xs:annotation>
+      <xs:documentation>
+        Type contains the signature value, an identifier and a reference to the certificate that contains the public key.
+        The value is an base64 encoded ASN.1
+        Dss-Sig-Value  ::=  SEQUENCE  {
+        r       INTEGER,
+        s       INTEGER  }
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:base64Binary">
+        <xs:attribute name="id" type="xs:string" use="required"><xs:annotation><xs:documentation>Identifier of the digital signature</xs:documentation></xs:annotation></xs:attribute>
+        <xs:attribute name="certificateRef" type="xs:string" use="required"><xs:annotation><xs:documentation>Signed Public Key</xs:documentation></xs:annotation></xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="StandaloneDigitalSignature">
+    <xs:annotation>
+      <xs:documentation>A single digital signature</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="filename" type="xs:string"><xs:annotation><xs:documentation>The filename of the content signed</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="certificates" type="S100_SE_CertificateContainerType"><xs:annotation><xs:documentation>Any certificates required to authenticate the signature against the SchemeAdministrator</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="digitalSignature" type="S100_SE_DigitalSignature"><xs:annotation><xs:documentation>A single digital signature</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="StandaloneDigitalSignature" type="StandaloneDigitalSignature">
+    <xs:annotation>
+      <xs:documentation>The root elements for CATALOG.SIGN or PERMIT.SIGN</xs:documentation>
+    </xs:annotation>
+    <xs:key name="CertificateKey" xmlns:se="http://www.iho.int/s100/se/5.0">
+      <xs:selector xpath="se:certificates/se:certificate | se:certificates/se:schemeAdministrator"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="CertificateKeyref" refer="CertificateKey" xmlns:se="http://www.iho.int/s100/se/5.0">
+      <xs:selector xpath="se:certificates/se:certificate"/>
+      <xs:field xpath="@issuer"/>
+    </xs:keyref>
+    <xs:keyref name="SignatureKeyref" refer="CertificateKey" xmlns:se="http://www.iho.int/s100/se/5.0">
+      <xs:selector xpath="se:digitalSignature"/>
+      <xs:field xpath="@certificateRef"/>
+    </xs:keyref>
+  </xs:element>
+
+  <!-- EXTENSION FOR SIGNATURES ON SIGNATURES -->
+  <xs:complexType name="S100_SE_SignatureOnSignature">
+    <xs:annotation><xs:documentation></xs:documentation></xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="S100_SE_DigitalSignature">
+        <xs:attribute name="signatureRef" type="xs:string"><xs:annotation><xs:documentation>The digital signature referenced</xs:documentation></xs:annotation></xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="DataStatus">
+    <xs:annotation><xs:documentation>The state of data when a digital signature is created</xs:documentation></xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="unencrypted"><xs:annotation><xs:documentation>The data is unencrypted and uncompressed</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="compressed"><xs:annotation><xs:documentation>The data is compressed only</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="encrypted"><xs:annotation><xs:documentation>The data is compressed and encrypted</xs:documentation></xs:annotation></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="S100_SE_DigitalSignatureReference">
+    <xs:annotation>
+      <xs:documentation>A reference to a cryptographic algorithm used in an implementation of Part 15</xs:documentation>
+      <xs:documentation>Only DSA is currently used in implementations of S-100 for file based transfer of data to ECDIS. Other values are included for interoperability with other implementations by external standards. See clause 15-8.4</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RSA"><xs:annotation><xs:documentation>RSA with key length >= 2048 bits</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="DSA"><xs:annotation><xs:documentation>DSA with key length >= 2048 bits</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="ECDSA"><xs:annotation><xs:documentation>ECDSA with key length >= 224 bits</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="ECDSA-224-SHA2-224"><xs:annotation><xs:documentation>224 bits ECDSA with SHA2-224 hashing</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="ECDSA-224-SHA3-224"><xs:annotation><xs:documentation>224 bits ECDSA with SHA3-224 hashing</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="ECDSA-256-SHA2-256"><xs:annotation><xs:documentation>256 bits ECDSA: SHA2-256</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="ECDSA-256-SHA3-256"><xs:annotation><xs:documentation>256 bits ECDSA: SHA3-256</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="ECDSA-384-SHA2"><xs:annotation><xs:documentation>384 bits ECDSA: SHA2-384</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="ECDSA-384-SHA3"><xs:annotation><xs:documentation>384 bits ECDSA: SHA3-384</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="AES-128"><xs:annotation><xs:documentation>AES 128 bit keys</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="AES-192"><xs:annotation><xs:documentation>AES 192 bit keys</xs:documentation></xs:annotation></xs:enumeration>
+      <xs:enumeration value="AES-256"><xs:annotation><xs:documentation>AES 256 bit keys</xs:documentation></xs:annotation></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- EXTENSION FOR SIGNATURES ON OTHER FORMS OF THE FILE (USUALLY UNENCRYPTED VERSION) -->
+  <xs:complexType name="S100_SE_SignatureOnData">
+    <xs:annotation><xs:documentation></xs:documentation></xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="S100_SE_DigitalSignature">
+        <xs:attribute name="dataStatus" type="DataStatus"><xs:annotation><xs:documentation>For data signatures only] whether the signature is of an unencrypted resource, one which is compressed only (such as an archive of multiple resources) or encrypted (and compressed)</xs:documentation></xs:annotation></xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- TYPE FOR ADDITIONAL SIGNATURES -->
+  <xs:complexType name="S100_SE_AdditionalSignature">
+    <xs:annotation>
+      <xs:documentation>Elements of this type can be used within the dataset discovery metadata elements of an exchanges set catalogue.</xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element name="signatureOnSignature" type="S100_SE_SignatureOnSignature"><xs:annotation><xs:documentation>Unique identifier of the digital signature value</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="signatureOnData" type="S100_SE_SignatureOnData"><xs:annotation><xs:documentation>The public key which the signature can be verified against. This is only optional if the signed public key is included in a digital signature element itself, otherwise it is mandatory</xs:documentation></xs:annotation></xs:element>
+    </xs:choice>
+  </xs:complexType>
+
+</xs:schema>
