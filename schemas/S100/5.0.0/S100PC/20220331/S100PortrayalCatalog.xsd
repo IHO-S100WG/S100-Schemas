@@ -28,9 +28,10 @@
 	================================================================================================== -->
 <!-- S-100 Portrayal catalog schema
       Build 20191115 Updated for changes approved at S-100WG4 (See S-100WG4-4.6, 4.7, and 4.8) (2019-11-15)
-	  Build 20220331 Updated for S-100 5.0.0
+	  Build 20220331 Updated for S-100 5.0.0. Updated 4/28 with types for alpha-3 language code
  -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:s100Symbol="http://www.iho.int/S100SymbolDefinition/5.0" version="5.0.0-20220331">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:s100Symbol="http://www.iho.int/S100SymbolDefinition/5.0" xmlns:s100CSL="http://www.iho.int/s100/csl/5.0" version="5.0.0-20220331">
+	<xs:import namespace="http://www.iho.int/s100/csl/5.0"  schemaLocation="https://schemas.s100dev.net/schemas/S100/5.0.0/S100CSL/20220331/S100CSL.xsd"/>
 	<xs:import namespace="http://www.iho.int/S100SymbolDefinition/5.0" schemaLocation="S100SymbolDefinition.xsd"/>
 	<!-- Supported type for context parameters -->
 	<xs:simpleType name="ParameterType">
@@ -79,7 +80,7 @@
 		<xs:sequence>
 			<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="description" type="xs:string"/>
-			<xs:element name="language" type="xs:language"/>
+			<xs:element name="language" type="s100CSL:languageCode"/>
 		</xs:sequence>
 	</xs:complexType>
 	<!-- Abstract base class for catalogue items -->

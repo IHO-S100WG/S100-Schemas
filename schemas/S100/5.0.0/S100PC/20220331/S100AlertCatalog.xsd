@@ -30,12 +30,15 @@ software, even if advised of the possibility of such damage.
 <!--
 	Version 5.0.0 Build 20220331 First formal release of the alerts catalogue, for S-100 Edition 5.0.0.
 		Contributors: NIWC (DG); Edited by Portolan Sciences LLC (RMM)
+		Updated 4/28 with alpha-3 language code
 -->
 <!-- Alert Catalogue Schema -->
 <xs:schema
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:s100CSL="http://www.iho.int/s100/csl/5.0"
 	xmlns:s100Symbol="http://www.iho.int/S100SymbolDefinition/5.0">
 	<xs:include schemaLocation="S100PortrayalCatalog.xsd"/>
+	<xs:import namespace="http://www.iho.int/s100/csl/5.0"  schemaLocation="https://schemas.s100dev.net/schemas/S100/5.0.0/S100CSL/20220331/S100CSL.xsd"/>
 	<xs:import namespace="http://www.iho.int/S100SymbolDefinition/5.0" schemaLocation="S100SymbolDefinition.xsd"/>
 	
 	<!-- MESSAGES -->
@@ -43,7 +46,7 @@ software, even if advised of the possibility of such damage.
 	<xs:complexType name="Text">
 		<xs:simpleContent>
 			<xs:extension base="xs:string">
-				<xs:attribute name="language" type="xs:language" default="eng"/>
+				<xs:attribute name="language" type="s100CSL:languageCode" default="eng"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
