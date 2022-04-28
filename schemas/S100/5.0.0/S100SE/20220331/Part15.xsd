@@ -46,7 +46,9 @@ Version 5.0.0 Build 20211116 (SevenCs) Prepared for S-100 Edition 5.0.0. No prio
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   version="5.0.0-20220331">
 
-  <xs:import namespace="http://standards.iso.org/iso/19115/-3/gco/1.0" schemaLocation="../../../../standards.iso.org/19115/-3/gco/1.0/gco.xsd"/>
+  <!--<xs:import namespace="http://standards.iso.org/iso/19115/-3/gco/1.0" schemaLocation="../../../../standards.iso.org/19115/-3/gco/1.0/gco.xsd"/>-->
+  <xs:import namespace="http://standards.iso.org/iso/19115/-3/gco/1.0" schemaLocation="https://schemas.isotc211.org/19115/-3/gco/1.0/gco.xsd"/>
+  
   
   <xs:complexType name="PermitType">
     <xs:annotation><xs:documentation>The root element of the permit file.</xs:documentation></xs:annotation>

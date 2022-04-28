@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- schemaLocation updated with standardized location replacing relative local file -->
-<colorProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schemas.s100dev.net/schemas/S100/5.0.0/S100PC/20220331/s100ColorProfile.xsd">
+<colorProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schemas.s100dev.net/schemas/S100/5.0.0/S100PC/20220331/S100ColorProfile.xsd">
     <colors>
         <color token="NODTA" name="grey">
             <description>No data color</description>
