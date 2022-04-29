@@ -1,11 +1,18 @@
 # S-100 Edition 5.0.0 schemas
-S-100 5.0.0 schemas and samples have been added in the <em>schemas</em> and <em>samples</em> folders. A zip archive of the distribution is available in the <em>archive</em> folder.
-
 There is now a schema server where the 5.0.0 schemas and samples can be accessed directly. The URL is https://schemas.s100dev.net/ 
+
+The README file from the distribution is posted in this repository (README_5_0_0.docx) and is also on the schema server. 
+A zip archive of the distribution is available in the <em>archive</em> folder in this repository as well as the schema server.
+
+A form for comments is also available (SchemasReviewForm.doc). Send comments to the S-100 WG Chair, with Cc'd to me (Raphael).
+A due date for comments on this distribution will be announced by the S-100 WG Chair.
 
 See the README_5_0_0.docx file for information about the 5.0.0 distribution. Note that folder and file names on the server are case-sensitive. The server index at https://schemas.s100dev.net/index.html provides the folder and file names in their actual case.
 
-<b>Contributors are requested not to update the schemas and sample files in this repository so as to avoid conflicts with the files on the schema server.</b> Instead, any discrepancies or change requests should be reported using the comment form so updates to the server and repository can be synchronized. The comment form is preferred to GitHub issues at least while the 5.0.0 distribution is being finalized. A due date for comments on this distribution will be announced by the S-100 WG Chair.
+<em>The schemas are not provided individually in this repository to avoid synchronization problems with the schema server.</em>
+They will be in an IHO repository after finalization - meanwhile access to a GitHub repository with files in folders can be provided if necessary. 
+
+Any discrepancies or change requests should be reported using the comment form so updates to the server and repository can be synchronized. The comment form is preferred to GitHub issues at least while the 5.0.0 distribution is being finalized. 
 
 # S100-Schemas (4.0.0)
 S100 Edition 4.0.0 Schemas uploaded as ZIP file.  See accompanying README docx file for folder organization.
