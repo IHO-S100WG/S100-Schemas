@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://schemas.s100dev.net/schemas/S100/5.0.0/S100Catalog/20220331/S100_XC.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://schemas.s100dev.net/schemas/S100/5.0.0/S100Catalog/20220610/S100_XC.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <!-- Raphael Malyankar April 11 2022
     Catalog example
+    Updated 20 June 2022
  -->
 <!-- 
     NOTE: (1) schema locations in the xml-model and xsi:schemaLocation must be updated to the proper locations in the local installation.
@@ -20,40 +21,60 @@
     xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
     xmlns:XC="http://www.iho.int/s100/xc/5.0"
     xmlns:S100SE="http://www.iho.int/s100/se/5.0"
+    xmlns:S100CI="http://www.iho.int/S100CI/5.0"
     xmlns:mmi="http://standards.iso.org/iso/19115/-3/mmi/1.0"
-    xsi:schemaLocation="http://www.iho.int/s100/xc/5.0      https://schemas.s100dev.net/schemas/S100/5.0.0/S100Catalog/20220331/S100_ExchangeCatalogue.xsd">
+    xsi:schemaLocation="http://www.iho.int/s100/xc/5.0      https://schemas.s100dev.net/schemas/S100/5.0.0/S100Catalog/20220610/S100_ExchangeCatalogue.xsd">
+
     <XC:identifier>
         <XC:identifier>abdc1234-1234-5678-abcd-123456abcdef</XC:identifier>
         <XC:dateTime>2018-10-16T00:00:00Z</XC:dateTime>
     </XC:identifier>
     <XC:contact>
         <XC:organization><gco:CharacterString>UKHO</gco:CharacterString></XC:organization>
+        <XC:address>
+            <cit:deliveryPoint><gco:CharacterString>Admiralty Way</gco:CharacterString></cit:deliveryPoint>
+            <cit:city><gco:CharacterString>Taunton</gco:CharacterString></cit:city>
+            <cit:administrativeArea><gco:CharacterString>Somerset</gco:CharacterString></cit:administrativeArea>
+            <cit:postalCode><gco:CharacterString>TA1 2DN</gco:CharacterString></cit:postalCode>
+            <cit:country><gco:CharacterString>United Kingdom</gco:CharacterString></cit:country>
+        </XC:address>
     </XC:contact>
     <XC:productSpecification>
-        <XC:name>S-101</XC:name>
+        <XC:name>Electronic Navigational Chart</XC:name>
         <XC:version>1.0</XC:version>
         <XC:date>2019-12-31</XC:date>
         <XC:productIdentifier>S-101</XC:productIdentifier>
-        <XC:number>999</XC:number>
+        <XC:number>78</XC:number>
         <XC:compliancyCategory>category4</XC:compliancyCategory>
     </XC:productSpecification>
     <XC:defaultLocale><lan:PT_Locale>
         <lan:language><lan:LanguageCode codeList="http://www.iho.int/S100/5.0.0/resources/Codelists/cat/codelists.xml#S100_MD_LanguageCode" codeListValue="eng">The language of Milton and Shakespeare</lan:LanguageCode></lan:language>
         <lan:characterEncoding><lan:MD_CharacterSetCode codeList="http://www.iho.int/S100/5.0.0/resources/Codelists/cat/codelists.xml#S100_MD_CharacterSetCode" codeListValue="UTF-8">UTF-8</lan:MD_CharacterSetCode></lan:characterEncoding>
     </lan:PT_Locale></XC:defaultLocale>
-    <XC:otherLocale><lan:PT_Locale>
+    <XC:otherLocale><lan:PT_Locale id="locale_french">
         <lan:language><lan:LanguageCode codeList="http://www.iho.int/S100/5.0.0/resources/Codelists/cat/codelists.xml#S100_MD_LanguageCode" codeListValue="fra">The language of Molière and Dumas père</lan:LanguageCode></lan:language>
+        <lan:characterEncoding><lan:MD_CharacterSetCode codeList="http://www.iho.int/S100/5.0.0/resources/Codelists/cat/codelists.xml#S100_MD_CharacterSetCode" codeListValue="UTF-8">UTF-8</lan:MD_CharacterSetCode></lan:characterEncoding>
+    </lan:PT_Locale></XC:otherLocale>
+    <XC:otherLocale><lan:PT_Locale id="locale_german">
+        <lan:language><lan:LanguageCode codeList="http://www.iho.int/S100/5.0.0/resources/Codelists/cat/codelists.xml#S100_MD_LanguageCode" codeListValue="ger">The language of Goethe and Max Müller</lan:LanguageCode></lan:language>
         <lan:characterEncoding><lan:MD_CharacterSetCode codeList="http://www.iho.int/S100/5.0.0/resources/Codelists/cat/codelists.xml#S100_MD_CharacterSetCode" codeListValue="UTF-8">UTF-8</lan:MD_CharacterSetCode></lan:characterEncoding>
     </lan:PT_Locale></XC:otherLocale>
        
     <XC:exchangeCatalogueDescription xsi:type="lan:PT_FreeText_PropertyType">
-        <gco:CharacterString></gco:CharacterString>
+        <gco:CharacterString>Sample exchange catalogue for S-101 1.0.0.</gco:CharacterString>
         <lan:PT_FreeText>
-            <lan:textGroup><lan:LocalisedCharacterString locale="#fre">Catalogue d'échange d'échantillons pour S-101 1.0.0. Notez que le deuxième bloc de découverte de fichiers de prise en charge omet intentionnellement la date de spécification et la valeur de signature numérique pour illustrer les avertissements générés par les vérifications Schematron dans les fichiers S100_XC et S101_XC Schematron.</lan:LocalisedCharacterString></lan:textGroup>
+            <lan:textGroup><lan:LocalisedCharacterString locale="#locale_french">Catalogue d'échange d'échantillons pour S-101 1.0.0.</lan:LocalisedCharacterString></lan:textGroup>
+            <lan:textGroup><lan:LocalisedCharacterString locale="#locale_german">Dies ist ein Beispiel für einen Austauschkatalog für S-101 1.0.0.</lan:LocalisedCharacterString></lan:textGroup>
         </lan:PT_FreeText>
     </XC:exchangeCatalogueDescription>
 
-    <XC:exchangeCatalogueComment><gco:CharacterString>This is a hypothetical example to show the structure of the exchange catalogue.</gco:CharacterString></XC:exchangeCatalogueComment>
+    <XC:exchangeCatalogueComment xsi:type="lan:PT_FreeText_PropertyType">
+        <gco:CharacterString>This is a hypothetical example to show the structure of the exchange catalogue. Note, certificates and signatures as of 6/20/2022 are neither DSA nor valid!</gco:CharacterString>
+        <lan:PT_FreeText>
+            <lan:textGroup><lan:LocalisedCharacterString locale="#locale_french">Ceci est un exemple hypothétique pour montrer la structure d'un catalogue. Veuillez noter que les certificats et signatures au 20/06/2022 ne sont ni DSA ni valides !</lan:LocalisedCharacterString></lan:textGroup>
+            <lan:textGroup><lan:LocalisedCharacterString locale="#locale_german">Dies ist ein hypothetisches Beispiel, um die Struktur eines Katalogs zu zeigen. Bitte beachten Sie, Zertifikate und Signaturen vom 20.06.2022 sind weder DSA noch gültig!</lan:LocalisedCharacterString></lan:textGroup>
+        </lan:PT_FreeText>
+    </XC:exchangeCatalogueComment>
 
     <XC:certificates>
         <S100SE:schemeAdministrator id="root"/>
@@ -66,10 +87,13 @@
         <S100SE:certificate id="ic-enc" issuer="root">
             ZGVmYXVsdA==
         </S100SE:certificate>
-        <S100SE:certificate id="UK" issuer="root">
+        <S100SE:certificate id="UK00" issuer="root">
             ZGVmYXVsdA==
         </S100SE:certificate>
         <S100SE:certificate id="US00" issuer="root">
+            ZGVmYXVsdA==
+        </S100SE:certificate>
+        <S100SE:certificate id="AA00" issuer="root">
             ZGVmYXVsdA==
         </S100SE:certificate>
     </XC:certificates>
@@ -81,9 +105,9 @@
             <XC:description><gco:CharacterString>Dataset 1</gco:CharacterString></XC:description>
             <XC:compressionFlag>false</XC:compressionFlag>
             <XC:dataProtection>false</XC:dataProtection>
-
-            <XC:digitalSignatureReference>ECDSA</XC:digitalSignatureReference>
-            <XC:digitalSignatureValue id="sig1" certificateRef="UKHO">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</XC:digitalSignatureValue>
+            <XC:digitalSignatureReference>DSA</XC:digitalSignatureReference>
+            <XC:digitalSignatureValue>
+                <S100SE:S100_SE_DigitalSignature id="sig1" certificateRef="UK00">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</S100SE:S100_SE_DigitalSignature></XC:digitalSignatureValue>
             <XC:copyright>true</XC:copyright>
             <XC:classification gco:isoType="mco:MD_ClassificationCode">
                 <mco:MD_ClassificationCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ClassificationCode" codeListValue="unclassified">unclassified</mco:MD_ClassificationCode>
@@ -101,7 +125,7 @@
             <XC:updateNumber>0</XC:updateNumber>
             <XC:updateApplicationDate>2018-04-15</XC:updateApplicationDate>
             <XC:issueDate>2018-04-15</XC:issueDate>
-            <XC:boundingBox gco:isoType="gmd:EX_GeographicBoundingBox">
+            <XC:boundingBox>
                 <gex:westBoundLongitude><gco:Decimal>55.0</gco:Decimal></gex:westBoundLongitude>
                 <gex:eastBoundLongitude><gco:Decimal>71.0</gco:Decimal></gex:eastBoundLongitude>
                 <gex:southBoundLatitude><gco:Decimal>-30.0</gco:Decimal></gex:southBoundLatitude>
@@ -112,7 +136,7 @@
             </XC:temporalExtent>
             <XC:productSpecification>
                 <XC:productIdentifier>S-101</XC:productIdentifier>
-                <XC:number>999</XC:number>
+                <XC:number>78</XC:number>
                 <XC:compliancyCategory>category4</XC:compliancyCategory>
             </XC:productSpecification>
             <XC:producingAgency>
@@ -200,7 +224,9 @@
             <XC:dataProtection>false</XC:dataProtection>
             
             <XC:digitalSignatureReference>DSA</XC:digitalSignatureReference>
-            <XC:digitalSignatureValue id="sig2" certificateRef="ukho">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</XC:digitalSignatureValue>
+            <XC:digitalSignatureValue>
+                <S100SE:S100_SE_DigitalSignature id="sig2" certificateRef="UK00">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</S100SE:S100_SE_DigitalSignature>
+            </XC:digitalSignatureValue>
             <XC:copyright>false</XC:copyright>
             <XC:classification gco:isoType="mco:MD_ClassificationCode"><mco:MD_ClassificationCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ClassificationCode" codeListValue="unclassified">unclassified</mco:MD_ClassificationCode></XC:classification>
             <XC:purpose>newDataset</XC:purpose>
@@ -212,7 +238,7 @@
             <XC:updateNumber>0</XC:updateNumber>
             <XC:updateApplicationDate>2018-04-15</XC:updateApplicationDate>
             <XC:issueDate>2018-04-15</XC:issueDate>
-            <XC:boundingBox gco:isoType="gmd:EX_GeographicBoundingBox">
+            <XC:boundingBox>
                 <gex:westBoundLongitude><gco:Decimal>55.0</gco:Decimal></gex:westBoundLongitude>
                 <gex:eastBoundLongitude><gco:Decimal>71.0</gco:Decimal></gex:eastBoundLongitude>
                 <gex:southBoundLatitude><gco:Decimal>-30.0</gco:Decimal></gex:southBoundLatitude>
@@ -220,7 +246,7 @@
             </XC:boundingBox>
             <XC:productSpecification>
                 <XC:productIdentifier>S-101</XC:productIdentifier>
-                <XC:number>999</XC:number>
+                <XC:number>78</XC:number>
                 <XC:compliancyCategory>category4</XC:compliancyCategory>
             </XC:productSpecification>
             <XC:producingAgency>
@@ -304,8 +330,8 @@
             <XC:dataType>ASCII</XC:dataType>
             <XC:compressionFlag>false</XC:compressionFlag>
             <XC:digitalSignatureReference>DSA</XC:digitalSignatureReference>
-            <XC:digitalSignatureValue id="sig3" certificateRef="ukho">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</XC:digitalSignatureValue>
-            <XC:supportedResource>101GB002390820</XC:supportedResource>
+        	<XC:digitalSignatureValue><S100SE:S100_SE_DigitalSignature id="sig3" certificateRef="UK00">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</S100SE:S100_SE_DigitalSignature></XC:digitalSignatureValue>
+        	<XC:supportedResource>101GB002390820</XC:supportedResource>
             <XC:resourcePurpose>supportFile</XC:resourcePurpose>
         </XC:S100_SupportFileDiscoveryMetadata>
 
@@ -320,8 +346,8 @@
             <XC:dataType>ASCII</XC:dataType>
             <XC:compressionFlag>false</XC:compressionFlag>
             <XC:digitalSignatureReference>DSA</XC:digitalSignatureReference>
-            <XC:digitalSignatureValue id="s4" certificateRef="ukho">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</XC:digitalSignatureValue>
-            <XC:supportedResource>101GB002390820</XC:supportedResource>
+        	<XC:digitalSignatureValue><S100SE:S100_SE_DigitalSignature id="s4" certificateRef="UK00">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</S100SE:S100_SE_DigitalSignature></XC:digitalSignatureValue>
+        	<XC:supportedResource>101GB002390820</XC:supportedResource>
             <XC:supportedResource>101GB0043498505</XC:supportedResource>
             <XC:resourcePurpose>supportFile</XC:resourcePurpose>
         </XC:S100_SupportFileDiscoveryMetadata>
@@ -337,8 +363,13 @@
             <XC:dataType>ASCII</XC:dataType>
             <XC:compressionFlag>false</XC:compressionFlag>
             <XC:digitalSignatureReference>DSA</XC:digitalSignatureReference>
-            <XC:digitalSignatureValue id="s5" certificateRef="ukho">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</XC:digitalSignatureValue>
-            <XC:supportedResource>101GB0043498505</XC:supportedResource>
+        	<XC:digitalSignatureValue>
+        		<S100SE:S100_SE_DigitalSignature id="s5" certificateRef="UK00">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</S100SE:S100_SE_DigitalSignature>
+        	</XC:digitalSignatureValue>
+        	<XC:digitalSignatureValue>
+        		<S100SE:S100_SE_SignatureOnSignature id="s5a" certificateRef="UK00" signatureRef="s5">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</S100SE:S100_SE_SignatureOnSignature>
+        	</XC:digitalSignatureValue>
+        	<XC:supportedResource>101GB0043498505</XC:supportedResource>
             <XC:resourcePurpose>supportFile</XC:resourcePurpose>
         </XC:S100_SupportFileDiscoveryMetadata>
     </XC:supportFileDiscoveryMetadata>
@@ -353,12 +384,14 @@
             <XC:issueDate>2020-01-01</XC:issueDate>
             <XC:productSpecification>
                 <XC:productIdentifier>S-101</XC:productIdentifier>
-                <XC:number>999</XC:number>
+                <XC:number>78</XC:number>
                 <XC:compliancyCategory>category4</XC:compliancyCategory>
             </XC:productSpecification>
             <XC:digitalSignatureReference>DSA</XC:digitalSignatureReference>
-            <XC:digitalSignatureValue id="spc1" certificateRef="iho">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</XC:digitalSignatureValue>
-            <XC:compressionFlag>false</XC:compressionFlag>
+            <XC:digitalSignatureValue>
+                <S100SE:S100_SE_DigitalSignature id="spc1" certificateRef="AA00">302C021433796C6647CC1C55A67DC72FA7C6E157A6594B2B02145D3768B44F3A6ABA11A77178B738AD3B6A0DE344</S100SE:S100_SE_DigitalSignature>
+            </XC:digitalSignatureValue>
+        	<XC:compressionFlag>false</XC:compressionFlag>
             <XC:defaultLocale><lan:PT_Locale>
                 <lan:language><lan:LanguageCode codeList="http://www.iho.int/S100/5.0.0/resources/Codelists/cat/codelists.xml#S100_MD_LanguageCode" codeListValue="eng">English</lan:LanguageCode></lan:language>
                 <lan:characterEncoding><lan:MD_CharacterSetCode codeList="http://www.iho.int/S100/5.0.0/resources/Codelists/cat/codelists.xml#S100_MD_CharacterSetCode" codeListValue="UTF-8">UTF-8</lan:MD_CharacterSetCode></lan:characterEncoding>
