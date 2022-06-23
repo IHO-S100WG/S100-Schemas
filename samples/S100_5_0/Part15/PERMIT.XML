@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Permit xmlns="http://www.iho.int/s100/se/5.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.iho.int/s100/se/5.0 https://schemas.s100dev.net/schemas/S100/5.0.0/S100SE/20220331/Part15.xsd">
+    xsi:schemaLocation="http://www.iho.int/s100/se/5.0 https://schemas.s100dev.net/schemas/S100/5.0.0/S100SE/20220610/Part15.xsd">
     <header>
         <issueDate>2018-03-20Z</issueDate>
         <dataServerName>Primar</dataServerName>
